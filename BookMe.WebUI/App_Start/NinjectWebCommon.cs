@@ -1,3 +1,6 @@
+using System.Web.Mvc;
+using BookMe.WebUI.Infrastructure;
+
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(BookMe.WebUI.App_Start.NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(BookMe.WebUI.App_Start.NinjectWebCommon), "Stop")]
 
@@ -61,6 +64,7 @@ namespace BookMe.WebUI.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
+            DependencyResolver.SetResolver(new NinjectDepdencyResolver(kernel));
         }        
     }
 }
