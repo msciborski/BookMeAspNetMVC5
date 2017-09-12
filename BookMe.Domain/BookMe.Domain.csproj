@@ -78,6 +78,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Concrete\BookMeContext.cs" />
+    <Compile Include="Concrete\BookMeInitializer.cs" />
     <Compile Include="Entities\City.cs" />
     <Compile Include="Entities\Hotel.cs" />
     <Compile Include="Entities\Room.cs" />
