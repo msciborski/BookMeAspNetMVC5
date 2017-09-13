@@ -118,7 +118,7 @@
       <Name>BookMe.Domain</Name>
     </ProjectReference>
     <ProjectReference Include="..\BookMe.WebUI\BookMe.WebUI.csproj">
-      <Project>{a4b501d9-b80b-412e-acba-558c25b61055}</Project>
+      <Project>{64dbea89-4e8f-4b20-9421-007c09226418}</Project>
       <Name>BookMe.WebUI</Name>
     </ProjectReference>
   </ItemGroup>

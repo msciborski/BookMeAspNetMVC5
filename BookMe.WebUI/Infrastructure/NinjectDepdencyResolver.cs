@@ -14,16 +14,15 @@ namespace BookMe.WebUI.Infrastructure {
             AddBindings();
         }
 
+        private void AddBindings(){
+        }
+
         public object GetService(Type serviceType){
             return kernel.TryGet(serviceType);
         }
 
         public IEnumerable<object> GetServices(Type serviceType){
             return kernel.GetAll(serviceType);
-        }
-
-        private void AddBindings(){
-            
         }
     }
 }
