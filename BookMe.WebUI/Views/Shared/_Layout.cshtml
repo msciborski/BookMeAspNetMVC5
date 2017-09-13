@@ -16,6 +16,9 @@
 <body>
     <nav class="navbar navbar-default">
         @Html.ActionLink("Booking", "Index", "Home", null, new { @class = "navbar-brand" })
+        <ul class="nav navbar-nav">
+            <li>@Html.ActionLink("Hotels","List","Hotel")</li>
+        </ul>
     </nav>
     <div class="container">
         @RenderBody()

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using BookMe.Domain.Concrete.Repository;
+using BookMe.Domain.Concrete.Repository.Interfaces;
 using Ninject;
 
 namespace BookMe.WebUI.Infrastructure {
@@ -15,6 +17,7 @@ namespace BookMe.WebUI.Infrastructure {
         }
 
         private void AddBindings(){
+            kernel.Bind<IUnitOfWork>().To<UnitOfWork>();
         }
 
         public object GetService(Type serviceType){

@@ -1,0 +1,12 @@
+﻿@using BookMe.WebUI.HtmlHelpers
+@model BookMe.WebUI.Models.HotelListViewModel
+
+@{
+    ViewBag.Title = "Hotels";
+}
+@foreach (var hotel in Model.Hotels){
+    <h3>@hotel.Name</h3>
+}
+<div>
+    @Html.PageLinks(Model.PagingInfo,x => Url.Action("List","Hotel",new {page =x},null))
+</div>
