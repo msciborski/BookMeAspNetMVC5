@@ -9,12 +9,6 @@ namespace BookMe.UnitTests {
     public class HotelTests {
         [TestMethod]
         public void CanReturnTop6MostPoppularCities(){
-            //Arrange
-            Mock<IHotelRepository> mockHotelRepository = new Mock<IHotelRepository>();
-            mockHotelRepository.Setup(m => m.)
-            Mock<IUnitOfWork> mockUoW = new Mock<IUnitOfWork>();
-            mockUoW.Setup(m => m.Hotels)
-            HotelController target = new HotelController();
         }
     }
 }

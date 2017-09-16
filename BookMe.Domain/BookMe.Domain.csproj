@@ -86,10 +86,8 @@
     <Compile Include="Concrete\Repository\Interfaces\IHotelRepository.cs" />
     <Compile Include="Concrete\Repository\Interfaces\IRepository.cs" />
     <Compile Include="Concrete\Repository\Interfaces\IRoomRepository.cs" />
-    <Compile Include="Concrete\Repository\Interfaces\IUnitOfWork.cs" />
     <Compile Include="Concrete\Repository\Repository.cs" />
     <Compile Include="Concrete\Repository\RoomRepository.cs" />
-    <Compile Include="Concrete\Repository\UnitOfWork.cs" />
     <Compile Include="Entities\City.cs" />
     <Compile Include="Entities\Hotel.cs" />
     <Compile Include="Entities\Room.cs" />

@@ -11,16 +11,16 @@ using Ninject.Infrastructure.Language;
 
 namespace BookMe.WebUI.Controllers {
     public class HotelController : Controller{
-        private IUnitOfWork _unitOfWork;
+        private IHotelRepository _repository;
         public int PageSize { get; set; }
-        public HotelController(IUnitOfWork unitOfWork){
-            _unitOfWork = unitOfWork;
+        public HotelController(IHotelRepository repository){
+            _repository = repository;
             PageSize = 3;
         }
 
         public ViewResult List(int page = 1){
             IEnumerable<Hotel> hotelsList =
-                _unitOfWork.Hotels.GetAll()
+                _repository.GetAll()
                     .OrderByDescending(h => h.HotelID)
                     .Skip((page - 1)*PageSize)
                     .Take(PageSize)
@@ -31,14 +31,14 @@ namespace BookMe.WebUI.Controllers {
                 PagingInfo = new PagingInfo() {
                     CurrentPage = page,
                     ItemsPerPage = PageSize,
-                    TotalItems = _unitOfWork.Hotels.GetAll().Count()
+                    TotalItems = _repository.GetAll().Count()
                 }
             };
             return View(hotels);
         }
 
         public PartialViewResult MostPopularCities(){
-            return PartialView(_unitOfWork.Hotels.MostPopularHotels());
+            return PartialView(_repository.MostPopularHotels());
         }
     }
 }
