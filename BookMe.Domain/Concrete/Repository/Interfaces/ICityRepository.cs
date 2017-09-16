@@ -7,5 +7,6 @@ using BookMe.Domain.Entities;
 
 namespace BookMe.Domain.Concrete.Repository.Interfaces {
     public interface ICityRepository : IRepository<City>{
+        IEnumerable<Hotel> MostPopularCities();
     }
 }

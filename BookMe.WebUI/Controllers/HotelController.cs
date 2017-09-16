@@ -36,5 +36,9 @@ namespace BookMe.WebUI.Controllers {
             };
             return View(hotels);
         }
+
+        public PartialViewResult MostPopularCities(){
+            return PartialView(_unitOfWork.Hotels.MostPopularHotels());
+        }
     }
 }

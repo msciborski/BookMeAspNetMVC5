@@ -11,5 +11,9 @@ namespace BookMe.Domain.Concrete.Repository {
     public class CityRepository : Repository<City>, ICityRepository{
         public CityRepository(DbContext dbContext) : base(dbContext){
         }
+
+        public IEnumerable<Hotel> MostPopularCities(){
+            throw new NotImplementedException();
+        }
     }
 }

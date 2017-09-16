@@ -18,13 +18,13 @@ namespace BookMe.Domain.Concrete {
             context.SaveChanges();
 
             var hotelList = new List<Hotel>(){
-                new Hotel() {Name = "Hotel Trójka", Address = "Dworcowa 25", CityID = 1, ContactNumber = "999888777" },
-                new Hotel() {Name = "Euro Hotel", Address = "Cegielskiego 32/24", CityID = 1, ContactNumber = "333444555"},
-                new Hotel() {Name = "Royal Hotel Poznań", Address = "Warszawska 24", CityID = 1, ContactNumber = "987456123"},
-                new Hotel() {Name = "Grand Palace", Address = "Marszałkowska 24", CityID = 2, ContactNumber = "345123345"},
-                new Hotel() {Name = "Novotel", Address = "Puławskiego 22", CityID = 2, ContactNumber = "983123456"},
-                new Hotel() {Name = "Diamond Hotel", Address = "Pszczelna 22", CityID = 2, ContactNumber = "123444555"},
-                new Hotel() {Name = "Hamilton", Address = "Gdyńska 33", CityID = 3, ContactNumber = "123456777"}
+                new Hotel() {Name = "Hotel Trójka", Address = "Dworcowa 25", CityID = 1, ContactNumber = "999888777", AddDate = DateTime.Parse("21.08.2016")},
+                new Hotel() {Name = "Euro Hotel", Address = "Cegielskiego 32/24", CityID = 1, ContactNumber = "333444555", AddDate = DateTime.Parse("23.03.2016")},
+                new Hotel() {Name = "Royal Hotel Poznań", Address = "Warszawska 24", CityID = 1, ContactNumber = "987456123", AddDate = DateTime.Parse("25.04.2016")},
+                new Hotel() {Name = "Grand Palace", Address = "Marszałkowska 24", CityID = 2, ContactNumber = "345123345", AddDate = DateTime.Parse("03.08.2016")},
+                new Hotel() {Name = "Novotel", Address = "Puławskiego 22", CityID = 2, ContactNumber = "983123456", AddDate = DateTime.Parse("04.08.2016")},
+                new Hotel() {Name = "Diamond Hotel", Address = "Pszczelna 22", CityID = 2, ContactNumber = "123444555", AddDate = DateTime.Parse("20.10.2016")},
+                new Hotel() {Name = "Hamilton", Address = "Gdyńska 33", CityID = 3, ContactNumber = "123456777", AddDate = DateTime.Parse("29.03.2017")}
             };
             hotelList.ForEach(h => context.Hotels.Add(h));
             context.SaveChanges();
