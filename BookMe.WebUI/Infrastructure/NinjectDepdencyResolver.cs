@@ -17,7 +17,7 @@ namespace BookMe.WebUI.Infrastructure {
         }
 
         private void AddBindings(){
-            kernel.Bind<IUnitOfWork>().To<UnitOfWork>();
+            kernel.Bind<IHotelRepository>().To<HotelRepository>();
         }
 
         public object GetService(Type serviceType){

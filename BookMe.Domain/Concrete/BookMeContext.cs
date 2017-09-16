@@ -11,8 +11,8 @@ namespace BookMe.Domain.Concrete {
 
         public BookMeContext() : base("BookMeDb") { }
 
-        public DbSet<City> Cities { get; set; }
-        public DbSet<Hotel> Hotels { get; set; }
-        public DbSet<Room> Rooms { get; set; }
+        public virtual DbSet<City> Cities { get; set; }
+        public virtual DbSet<Hotel> Hotels { get; set; }
+        public virtual DbSet<Room> Rooms { get; set; }
     }
 }
