@@ -12,4 +12,5 @@
         <strong>@Model.City.Name, @Model.City.ZipCode</strong>
     </div>
 </div>
+@Html.Action("RoomsForSelectedHotel","Room", new { id = @Model.HotelID})
 

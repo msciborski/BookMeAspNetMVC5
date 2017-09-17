@@ -163,6 +163,7 @@
     <Content Include="Views\Hotel\LatestHotels.cshtml" />
     <Content Include="Views\Shared\HotelSummary.cshtml" />
     <Content Include="Views\Hotel\Hotel.cshtml" />
+    <Content Include="Views\Room\RoomsForSelectedHotel.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -172,7 +173,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Room\" />
     <Folder Include="Views\Test\" />
   </ItemGroup>
   <ItemGroup>

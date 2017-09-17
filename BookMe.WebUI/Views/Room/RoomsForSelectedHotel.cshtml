@@ -1,0 +1,23 @@
+﻿@using BookMe.Domain.Entities
+@model IEnumerable<Room>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nazwa</th>
+            <th>Pojemnosc</th>
+            <th>Cena za dobe</th>
+            <th>Rodzaj pokoju</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var room in Model) {
+            <tr>
+                <td>@room.Name</td>
+                <td>@room.Capacity</td>
+                <td>@room.Price</td>
+                <td>@room.RoomType.ToString()</td>
+            </tr>
+        }
+    </tbody>
+</table>
