@@ -1,0 +1,15 @@
+﻿@using BookMe.Domain.Entities
+@model Hotel
+<div class="col-sm-6 col-md-2">
+    <div class="thumbnail">
+        <img src="#" alt="pic"/>
+        <div class="caption">
+            <h4>@Model.Name</h4>
+            <address>
+                <strong>@Model.City.Name</strong><br/>
+                @Model.Address<br/>
+                <abbr title="Phone">P:</abbr>@Model.ContactNumber<br/>
+            </address>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,10 @@
+﻿@using BookMe.Domain.Entities
+@model IEnumerable<Hotel>
+@{
+    ViewBag.Title = "LatestHotels";
+}
+<div class="row">
+    @foreach (var hotel in Model){
+        @Html.Partial("HotelSummary",hotel)
+    }
+</div>

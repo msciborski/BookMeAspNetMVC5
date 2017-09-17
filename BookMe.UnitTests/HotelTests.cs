@@ -14,7 +14,7 @@ namespace BookMe.UnitTests {
     [TestClass]
     public class HotelTests {
         [TestMethod]
-        public void CanReturnTop6MostPoppularCities(){
+        public void CanReturnTop6MostLatestHotels(){
             //Arrange
             Hotel[] data = new Hotel[]{
                 new Hotel() {HotelID = 1, Name = "H1", AddDate = DateTime.Parse("21.08.2016")},
@@ -32,7 +32,7 @@ namespace BookMe.UnitTests {
             HotelController target = new HotelController(repo);
 
             //Act
-            Hotel[] result = ((IEnumerable<Hotel>) target.MostPopularCities().Model).ToArray();
+            Hotel[] result = ((IEnumerable<Hotel>) target.LatestHotels().Model).ToArray();
 
             //Assert
             Assert.AreEqual(result.Length, 6);

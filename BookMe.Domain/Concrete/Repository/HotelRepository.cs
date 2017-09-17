@@ -15,8 +15,8 @@ namespace BookMe.Domain.Concrete.Repository {
         /// Method which return top 6 the newest hotels
         /// </summary>
         /// <returns>IEnumerable with Hotels</returns>
-        public IEnumerable<Hotel> MostPopularHotels(){
-            return DbSet.OrderByDescending(h => h.AddDate).Take(6);
+        public IEnumerable<Hotel> LatestHotels(){
+            return DbSet.Include(h => h.City).OrderByDescending(h => h.AddDate).Take(6);
         }
     }
 }

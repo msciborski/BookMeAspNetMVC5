@@ -37,8 +37,8 @@ namespace BookMe.WebUI.Controllers {
             return View(hotels);
         }
 
-        public PartialViewResult MostPopularCities(){
-            return PartialView(_repository.MostPopularHotels());
+        public PartialViewResult LatestHotels(){
+            return PartialView(_repository.LatestHotels());
         }
     }
 }
