@@ -119,6 +119,7 @@
     <Compile Include="DbSetMocking.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="HotelTests.cs" />
+    <Compile Include="RoomTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
