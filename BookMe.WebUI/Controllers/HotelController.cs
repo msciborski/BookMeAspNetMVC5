@@ -40,5 +40,15 @@ namespace BookMe.WebUI.Controllers {
         public PartialViewResult LatestHotels(){
             return PartialView(_repository.LatestHotels());
         }
+
+        public ActionResult Hotel(int id){
+            Hotel hotel = _repository.Get(id);
+            if (hotel != null){
+                return View(hotel);
+            }
+            else{
+                return RedirectToAction("Index", "Home");
+            }
+        }
     }
 }

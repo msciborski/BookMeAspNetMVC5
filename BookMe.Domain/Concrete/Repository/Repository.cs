@@ -25,31 +25,46 @@ namespace BookMe.Domain.Concrete.Repository {
         }
 
         public TEntity Get(int id){
-            throw new NotImplementedException();
+            return DbSet.Find(id);
         }
 
         public void Add(TEntity entity){
-            throw new NotImplementedException();
+            DbSet.Add(entity);
         }
 
         public void AddRange(IEnumerable<TEntity> entities){
-            throw new NotImplementedException();
+            foreach (var entity in entities){
+                Add(entity);
+            }
         }
 
         public void Delete(TEntity entity){
-            throw new NotImplementedException();
+            DbSet.Remove(entity);
         }
 
         public void Delete(int id){
-            throw new NotImplementedException();
+            TEntity entity = DbSet.Find(id);
+            if (entity != null){
+                Delete(entity);
+            }
+            else{
+                throw new Exception("Don't exist");
+            }
         }
 
         public void Update(TEntity entity){
-            throw new NotImplementedException();
+            DbSet.Attach(entity);
+            DbContext.Entry(entity).State = EntityState.Modified;
         }
 
         public void Update(int id){
-            throw new NotImplementedException();
+            TEntity entity = DbSet.Find(id);
+            if (entity != null){
+                Update(entity);
+            }
+            else{
+                throw new Exception("Don't exist");
+            }
         }
     }
 }

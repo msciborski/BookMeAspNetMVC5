@@ -5,8 +5,8 @@
     ViewBag.Title = "Hotels";
 }
 @foreach (var hotel in Model.Hotels){
-    <h3>@hotel.Name</h3>
+    <h3>@Html.ActionLink(@hotel.Name,"Hotel","Hotel", new {id = @hotel.HotelID}, null)</h3>
 }
 <div>
-    @Html.PageLinks(Model.PagingInfo,x => Url.Action("List","Hotel",new {page =x},null))
+    @Html.PageLinks(Model.PagingInfo,x => Url.Action("List","Hotel",new {page = x},null))
 </div>

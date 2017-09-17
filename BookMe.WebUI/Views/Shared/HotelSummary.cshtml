@@ -4,10 +4,10 @@
     <div class="thumbnail">
         <img src="#" alt="pic"/>
         <div class="caption">
-            <h4>@Model.Name</h4>
+            <h4>@Html.ActionLink(@Model.Name, "Hotel", "Hotel", new { id = @Model.HotelID }, null)</h4>
             <address>
-                <strong>@Model.City.Name</strong><br/>
-                @Model.Address<br/>
+                <strong>@Model.Address, </strong><br/>
+                @Model.City.Name, @Model.City.ZipCode<br/>
                 <abbr title="Phone">P:</abbr>@Model.ContactNumber<br/>
             </address>
         </div>

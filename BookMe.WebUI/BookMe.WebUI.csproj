@@ -161,6 +161,7 @@
     <Content Include="Views\Hotel\List.cshtml" />
     <Content Include="Views\Hotel\LatestHotels.cshtml" />
     <Content Include="Views\Shared\HotelSummary.cshtml" />
+    <Content Include="Views\Hotel\Hotel.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
