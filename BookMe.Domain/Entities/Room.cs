@@ -15,7 +15,7 @@ namespace BookMe.Domain.Entities {
         public decimal Price { get; set; }
         public int Capacity { get; set; }
         public RoomType? RoomType { get; set; }
-
+        public DateTime AddDate { get; set; }
         public virtual Hotel Hotel { get; set; }    
     }
 }

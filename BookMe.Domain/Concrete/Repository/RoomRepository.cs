@@ -11,5 +11,9 @@ namespace BookMe.Domain.Concrete.Repository {
     public class RoomRepository : Repository<Room>, IRoomRepository{
         public RoomRepository(DbContext dbContext) : base(dbContext){
         }
+
+        public IEnumerable<Room> LatestRooms(){
+            return DbSet.OrderByDescending(r => r.AddDate).Take(6);
+        }
     }
 }

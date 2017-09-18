@@ -18,5 +18,10 @@ namespace BookMe.WebUI.Controllers {
             return PartialView(rooms);
         }
 
+        public PartialViewResult LatestRooms(){
+            var rooms = _repository.LatestRooms();
+            return PartialView(rooms);
+        }
+
     }
 }

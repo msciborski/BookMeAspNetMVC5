@@ -7,5 +7,6 @@ using BookMe.Domain.Entities;
 
 namespace BookMe.Domain.Concrete.Repository.Interfaces {
     public interface IRoomRepository : IRepository<Room>{
+        IEnumerable<Room> LatestRooms();
     }
 }
