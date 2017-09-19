@@ -28,9 +28,6 @@ namespace BookMe.UnitTests {
                 new Hotel() {HotelID = 6, Name = "H6", City = city, AddDate = DateTime.Parse("26.08.2016")},
                 new Hotel() {HotelID = 7, Name = "H7", City = city, AddDate = DateTime.Parse("27.08.2016")},       
             };
-            City[] dataCities = new City[]{
-                new City() {CityID = 1}, 
-            };
             var mockHotelSet = GetMockDbSet(data.AsQueryable());
             mockHotelSet.Setup(m => m.Include("City")).Returns(mockHotelSet.Object);
             var mockContext = new Mock<BookMeContext>();

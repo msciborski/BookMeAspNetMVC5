@@ -1,0 +1,15 @@
+﻿@using BookMe.Domain.Entities
+@model IEnumerable<Room>
+
+@foreach (var room in Model) {
+    <div class="col-sm-6 col-md-6">
+        <div class="thumbnail">
+            <img src="#" alt="pic"/>
+            <div class="caption">
+                <h4>@room.Name</h4>
+                <h3>@room.Hotel.Name</h3>
+                <h3>@room.Hotel.City.Name</h3>
+            </div>
+        </div>
+    </div>
+}
