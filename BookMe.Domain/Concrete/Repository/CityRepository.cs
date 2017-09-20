@@ -12,8 +12,15 @@ namespace BookMe.Domain.Concrete.Repository {
         public CityRepository(DbContext dbContext) : base(dbContext){
         }
 
-        public IEnumerable<Hotel> MostPopularCities(){
-            throw new NotImplementedException();
+        public IDictionary<City, int> MostPopularCities(){
+            Dictionary<City, int> cityCount =
+                DbContext.Set<Hotel>()
+                    .Include(h => h.City)
+                    .GroupBy(h => h.City)
+                    .OrderBy(c => c.Key.CityID)
+                    .Take(6)
+                    .ToDictionary(d => d.Key, d => d.Count());
+            return cityCount;
         }
     }
 }

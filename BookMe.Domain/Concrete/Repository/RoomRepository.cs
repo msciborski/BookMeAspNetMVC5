@@ -14,7 +14,6 @@ namespace BookMe.Domain.Concrete.Repository {
 
         public IEnumerable<Room> LatestRooms(){
             return DbSet.Include(r => r.Hotel).Include(r => r.Hotel.City).OrderByDescending(r => r.AddDate).Take(6);
-
         }
     }
 }
