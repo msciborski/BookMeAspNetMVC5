@@ -5,7 +5,10 @@
 <h2>Najnowsze hotele:</h2>
 @Html.Action("LatestHotels","Hotel")
 <div class="row">
-    <div class="col-md-6"></div>
+    <div class="col-md-6">
+        <h2>Najpopularniejsze miasta:</h2>
+        @Html.Action("MostPopularCities", "City")
+    </div>
     <div class="col-md-6">
         <div class="row">
             <h2>Najnowsze pokoje:</h2>

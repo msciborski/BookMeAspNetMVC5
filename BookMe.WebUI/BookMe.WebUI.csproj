@@ -167,6 +167,7 @@
     <Content Include="Views\Hotel\Hotel.cshtml" />
     <Content Include="Views\Room\RoomsForSelectedHotel.cshtml" />
     <Content Include="Views\Room\LatestRooms.cshtml" />
+    <Content Include="Views\City\MostPopularCities.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -176,7 +177,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\City\" />
     <Folder Include="Views\Test\" />
   </ItemGroup>
   <ItemGroup>

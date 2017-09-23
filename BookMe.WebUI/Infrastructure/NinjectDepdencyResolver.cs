@@ -21,6 +21,7 @@ namespace BookMe.WebUI.Infrastructure {
         private void AddBindings(){
             kernel.Bind<IHotelRepository>().To<HotelRepository>();
             kernel.Bind<IRoomRepository>().To<RoomRepository>();
+            kernel.Bind<ICityRepository>().To<CityRepository>();
             kernel.Bind<DbContext>().To<BookMeContext>();
         }
 

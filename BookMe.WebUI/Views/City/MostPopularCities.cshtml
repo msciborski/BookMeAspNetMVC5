@@ -1,0 +1,12 @@
+﻿@using BookMe.WebUI.Models
+@model IEnumerable<CityViewModel>
+@foreach (var cityViewModel in Model){
+    <div class="row">
+        <div class="jumbotron">
+            <hgroup>
+                <h3>@cityViewModel.City.Name</h3>
+                <h4>Ilość hoteli: @cityViewModel.Count</h4>
+            </hgroup>
+        </div>
+    </div>
+}
