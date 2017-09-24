@@ -85,8 +85,10 @@
     <Compile Include="Concrete\Repository\HotelRepository.cs" />
     <Compile Include="Concrete\Repository\Interfaces\ICityRepository.cs" />
     <Compile Include="Concrete\Repository\Interfaces\IHotelRepository.cs" />
+    <Compile Include="Concrete\Repository\Interfaces\IPhotoRepository.cs" />
     <Compile Include="Concrete\Repository\Interfaces\IRepository.cs" />
     <Compile Include="Concrete\Repository\Interfaces\IRoomRepository.cs" />
+    <Compile Include="Concrete\Repository\PhotoRepository.cs" />
     <Compile Include="Concrete\Repository\Repository.cs" />
     <Compile Include="Concrete\Repository\RoomRepository.cs" />
     <Compile Include="Entities\City.cs" />

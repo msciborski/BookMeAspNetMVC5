@@ -140,6 +140,7 @@
     <Compile Include="Controllers\CityController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HotelController.cs" />
+    <Compile Include="Controllers\PhotoController.cs" />
     <Compile Include="Controllers\RoomController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -148,6 +149,7 @@
     <Compile Include="Infrastructure\NinjectDepdencyResolver.cs" />
     <Compile Include="Models\CityViewModel.cs" />
     <Compile Include="Models\HotelListViewModel.cs" />
+    <Compile Include="Models\LatestHotelsViewModel.cs" />
     <Compile Include="Models\PagingInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -177,6 +179,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Photo\" />
     <Folder Include="Views\Test\" />
   </ItemGroup>
   <ItemGroup>

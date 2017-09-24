@@ -4,7 +4,12 @@
 @foreach (var room in Model) {
     <div class="col-sm-6 col-md-6">
         <div class="thumbnail">
-            <img src="#" alt="pic"/>
+            @if (room.Photos.Count != 0){
+            <img src="@Url.Action("Index", "Photo", new{id = @room.Photos.First().PhotoID})" alt="@room.Name@room.Hotel.Name" />
+            }
+            else{
+            <img src="#" alt="@room.Name@room.Hotel.Name" />
+            }
             <div class="caption">
                 <h4>@room.Name</h4>
                 <h3>@room.Hotel.Name</h3>
