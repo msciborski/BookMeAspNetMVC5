@@ -11,5 +11,6 @@ namespace BookMe.Domain.Entities {
         public string ZipCode { get; set; }
 
         public virtual IEnumerable<Hotel> Hotels { get; set; }
+        public virtual IEnumerable<Photo> Photos { get; set; }
     }
 }

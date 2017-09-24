@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,5 +17,9 @@ namespace BookMe.Domain.Concrete {
         public virtual DbSet<City> Cities { get; set; }
         public virtual DbSet<Hotel> Hotels { get; set; }
         public virtual DbSet<Room> Rooms { get; set; }
+        public virtual DbSet<Photo> Photos { get; set; }
+        protected override void OnModelCreating(DbModelBuilder modelBuilder){
+            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+        }
     }
 }

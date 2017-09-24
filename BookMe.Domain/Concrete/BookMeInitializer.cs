@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,6 +12,10 @@ using BookMe.Domain.Entities;
 namespace BookMe.Domain.Concrete {
     public class BookMeInitializer : DropCreateDatabaseIfModelChanges<BookMeContext>{
         protected override void Seed(BookMeContext context){
+            String fileName = @"C:\Users\mscib\Documents\hotel.jpg";
+            byte[] bytePhoto = GetImageByteArray(fileName);
+            string mimeType = GetMimeType(fileName);
+
             var cityList = new List<City>(){
                 new City(){Name = "Poznań", ZipCode = "62-010"},
                 new City(){Name = "Warszawa", ZipCode = "80-010"},
@@ -28,6 +35,19 @@ namespace BookMe.Domain.Concrete {
             };
             hotelList.ForEach(h => context.Hotels.Add(h));
             context.SaveChanges();
+
+            var hotelPhotos = new List<Photo>(){
+                new Photo(){PhotoID = 1, ImageData = bytePhoto, ImageMimeType = mimeType, HotelID = 1},
+                new Photo(){PhotoID = 2, ImageData = bytePhoto, ImageMimeType = mimeType, HotelID = 2},
+                new Photo(){PhotoID = 3, ImageData = bytePhoto, ImageMimeType = mimeType, HotelID = 3},
+                new Photo(){PhotoID = 4, ImageData = bytePhoto, ImageMimeType = mimeType, HotelID = 4},
+                new Photo(){PhotoID = 5, ImageData = bytePhoto, ImageMimeType = mimeType, HotelID = 5},
+                new Photo(){PhotoID = 6, ImageData = bytePhoto, ImageMimeType = mimeType, HotelID = 6},
+                new Photo(){PhotoID = 7, ImageData = bytePhoto, ImageMimeType = mimeType, HotelID = 7}
+            };
+            hotelPhotos.ForEach(p => context.Photos.Add(p));
+            context.SaveChanges();
+
             var roomList = new List<Room>(){
                 new Room() {Name = "Pokój 3-osobowy", RoomType = RoomType.Pokój, Capacity = 3, Price = 45.5M, HotelID = 1, AddDate = DateTime.Parse("16.07.2016")},
                 new Room() {Name = "Pokój 2-osobowy", RoomType = RoomType.Pokój, Capacity = 2, Price = 30.0M, HotelID = 1, AddDate = DateTime.Parse("17.07.2016")},
@@ -52,6 +72,20 @@ namespace BookMe.Domain.Concrete {
             };
             roomList.ForEach(r => context.Rooms.Add(r));
             context.SaveChanges();
+        }
+
+        private byte[] GetImageByteArray(string imageFile){
+            MemoryStream stream = new MemoryStream();
+            Image image = Image.FromFile(imageFile);
+            image.Save(stream, ImageFormat.Jpeg);
+            return stream.ToArray();
+        }
+
+        private string GetMimeType(string imageFile){
+            Image image = Image.FromFile(imageFile);
+            ImageFormat format = image.RawFormat;
+            ImageCodecInfo codec = ImageCodecInfo.GetImageDecoders().First(c => c.FormatID == format.Guid);
+            return codec.MimeType;
         }
     }
 }

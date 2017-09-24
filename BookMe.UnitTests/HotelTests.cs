@@ -19,17 +19,21 @@ namespace BookMe.UnitTests {
         public void CanReturnTop6MostLatestHotels(){
             //Arrange
             var city = new City(){CityID = 1, Name = "C1"};
+            var photos = new List<Photo>(){
+                new Photo(){PhotoID = 1}
+            };
             Hotel[] data = new Hotel[]{
-                new Hotel() {HotelID = 1, Name = "H1", City = city, AddDate = DateTime.Parse("21.08.2016")},
-                new Hotel() {HotelID = 2, Name = "H2", City = city, AddDate = DateTime.Parse("22.08.2016")},
-                new Hotel() {HotelID = 3, Name = "H3", City = city, AddDate = DateTime.Parse("23.08.2016")},
-                new Hotel() {HotelID = 4, Name = "H4", City = city, AddDate = DateTime.Parse("24.08.2016")},
-                new Hotel() {HotelID = 5, Name = "H5", City = city, AddDate = DateTime.Parse("25.08.2016")},
-                new Hotel() {HotelID = 6, Name = "H6", City = city, AddDate = DateTime.Parse("26.08.2016")},
-                new Hotel() {HotelID = 7, Name = "H7", City = city, AddDate = DateTime.Parse("27.08.2016")},       
+                new Hotel() {HotelID = 1, Name = "H1", City = city, Photos = photos, AddDate = DateTime.Parse("21.08.2016")},
+                new Hotel() {HotelID = 2, Name = "H2", City = city, Photos = photos, AddDate = DateTime.Parse("22.08.2016")},
+                new Hotel() {HotelID = 3, Name = "H3", City = city, Photos = photos, AddDate = DateTime.Parse("23.08.2016")},
+                new Hotel() {HotelID = 4, Name = "H4", City = city, Photos = photos, AddDate = DateTime.Parse("24.08.2016")},
+                new Hotel() {HotelID = 5, Name = "H5", City = city, Photos = photos, AddDate = DateTime.Parse("25.08.2016")},
+                new Hotel() {HotelID = 6, Name = "H6", City = city, Photos = photos, AddDate = DateTime.Parse("26.08.2016")},
+                new Hotel() {HotelID = 7, Name = "H7", City = city, Photos = photos, AddDate = DateTime.Parse("27.08.2016")},       
             };
             var mockHotelSet = GetMockDbSet(data.AsQueryable());
             mockHotelSet.Setup(m => m.Include("City")).Returns(mockHotelSet.Object);
+            mockHotelSet.Setup(m => m.Include("Photos")).Returns(mockHotelSet.Object);
             var mockContext = new Mock<BookMeContext>();
             mockContext.Setup(m => m.Hotels).Returns(mockHotelSet.Object);
             mockContext.Setup(m => m.Set<Hotel>()).Returns(mockHotelSet.Object);
