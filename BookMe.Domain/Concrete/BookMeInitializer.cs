@@ -12,6 +12,7 @@ using BookMe.Domain.Entities;
 
 namespace BookMe.Domain.Concrete {
     public class BookMeInitializer : DropCreateDatabaseAlways<BookMeContext>{
+
         protected override void Seed(BookMeContext context){
             var cityList = new List<City>(){
                 new City(){Name = "Poznań", ZipCode = "62-010"},
@@ -66,39 +67,44 @@ namespace BookMe.Domain.Concrete {
             string mimeType = GetMimeType(fileHotelName);
             byte[] byteRoomPhoto = GetImageByteArray(fileRoomName);
             String mimeRoomType = GetMimeType(fileRoomName);
-            var hotelPhotos = new List<Photo>(){
-                new Photo(){PhotoID = 1, ImageData = bytePhoto, ImageMimeType = mimeType, HotelID = 1},
-                new Photo(){PhotoID = 2, ImageData = bytePhoto, ImageMimeType = mimeType, HotelID = 2},
-                new Photo(){PhotoID = 3, ImageData = bytePhoto, ImageMimeType = mimeType, HotelID = 3},
-                new Photo(){PhotoID = 4, ImageData = bytePhoto, ImageMimeType = mimeType, HotelID = 4},
-                new Photo(){PhotoID = 5, ImageData = bytePhoto, ImageMimeType = mimeType, HotelID = 5},
-                new Photo(){PhotoID = 6, ImageData = bytePhoto, ImageMimeType = mimeType, HotelID = 6},
-                new Photo(){PhotoID = 7, ImageData = bytePhoto, ImageMimeType = mimeType, HotelID = 7},
-                new Photo(){PhotoID = 8, ImageData = byteRoomPhoto,ImageMimeType = mimeRoomType, RoomID = 1},
-                new Photo(){PhotoID = 9, ImageData = byteRoomPhoto,ImageMimeType = mimeRoomType, RoomID = 2},
-                new Photo(){PhotoID = 10, ImageData = byteRoomPhoto,ImageMimeType = mimeRoomType, RoomID = 3},
-                new Photo(){PhotoID = 11, ImageData = byteRoomPhoto,ImageMimeType = mimeRoomType, RoomID = 4},
-                new Photo(){PhotoID = 12, ImageData = byteRoomPhoto,ImageMimeType = mimeRoomType, RoomID = 5},
-                new Photo(){PhotoID = 13, ImageData = byteRoomPhoto,ImageMimeType = mimeRoomType, RoomID = 6},
-                new Photo(){PhotoID = 14, ImageData = byteRoomPhoto,ImageMimeType = mimeRoomType, RoomID = 7},
-                new Photo(){PhotoID = 15, ImageData = byteRoomPhoto,ImageMimeType = mimeRoomType, RoomID = 8},
-                new Photo(){PhotoID = 16, ImageData = byteRoomPhoto,ImageMimeType = mimeRoomType, RoomID = 9},
-                new Photo(){PhotoID = 17, ImageData = byteRoomPhoto,ImageMimeType = mimeRoomType, RoomID = 10},
-                new Photo(){PhotoID = 18, ImageData = byteRoomPhoto,ImageMimeType = mimeRoomType, RoomID = 11},
-                new Photo(){PhotoID = 19, ImageData = byteRoomPhoto,ImageMimeType = mimeRoomType, RoomID = 12},
-                new Photo(){PhotoID = 20, ImageData = byteRoomPhoto,ImageMimeType = mimeRoomType, RoomID = 13},
-                new Photo(){PhotoID = 21, ImageData = byteRoomPhoto,ImageMimeType = mimeRoomType, RoomID = 14},
-                new Photo(){PhotoID = 22, ImageData = byteRoomPhoto,ImageMimeType = mimeRoomType, RoomID = 15},
-                new Photo(){PhotoID = 23, ImageData = byteRoomPhoto,ImageMimeType = mimeRoomType, RoomID = 16},
-                new Photo(){PhotoID = 24, ImageData = byteRoomPhoto,ImageMimeType = mimeRoomType, RoomID = 17},
-                new Photo(){PhotoID = 25, ImageData = byteRoomPhoto,ImageMimeType = mimeRoomType, RoomID = 18},
-                new Photo(){PhotoID = 26, ImageData = byteRoomPhoto,ImageMimeType = mimeRoomType, RoomID = 19},
-                new Photo(){PhotoID = 27, ImageData = byteRoomPhoto,ImageMimeType = mimeRoomType, RoomID = 20}
-            };
-            hotelPhotos.ForEach(p => context.Photos.Add(p));
+            List<Photo> photos = new List<Photo>();
+            CreatePhotoList(7, bytePhoto, mimeType, "hotel", photos);
+            CreatePhotoList(20, byteRoomPhoto, mimeRoomType, "room", photos);
+            foreach (var photo in photos){
+                context.Photos.Add(photo);
+            }
             context.SaveChanges();
         }
 
+        private void CreatePhotoList(int count, byte[] bytePhoto, String mimeType, String type, List<Photo> photos){
+            int startIndex = photos.Count;
+            switch (type){
+                case "hotel":
+                    int hotelID = 1;
+                    for (int i = startIndex+1; i <= (count + startIndex); i++){
+                        photos.Add(new Photo(){
+                            PhotoID = i,
+                            HotelID = hotelID,
+                            ImageData = bytePhoto,
+                            ImageMimeType = mimeType
+                        });
+                        hotelID++;
+                    }
+                    break;
+                case "room":
+                    int roomID = 1;
+                    for (int i = startIndex; i < (count + startIndex); i++){
+                        photos.Add(new Photo(){
+                            PhotoID = i,
+                            RoomID = roomID,
+                            ImageData = bytePhoto,
+                            ImageMimeType = mimeType
+                        });
+                        roomID++;
+                    }
+                    break;
+            }
+        }
 
         private byte[] GetImageByteArray(string imageFile){
             MemoryStream stream = new MemoryStream();
