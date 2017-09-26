@@ -121,6 +121,7 @@
     <Compile Include="HotelTests.cs" />
     <Compile Include="RoomTests.cs" />
     <Compile Include="CityTests.cs" />
+    <Compile Include="PhotoTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
