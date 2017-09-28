@@ -11,43 +11,52 @@ using BookMe.WebUI.Models;
 using Ninject.Infrastructure.Language;
 
 namespace BookMe.WebUI.Controllers {
-    public class HotelController : Controller{
+    public class HotelController : Controller {
         private IHotelRepository _repository;
         public int PageSize { get; set; }
-        public HotelController(IHotelRepository repository){
+        public HotelController(IHotelRepository repository) {
             _repository = repository;
             PageSize = 3;
         }
 
-        public ViewResult List(int page = 1){
-            IEnumerable<Hotel> hotelsList =
-                _repository.GetAll()
+        public ViewResult List(string search = null, int page = 1) {
+            IEnumerable<Hotel> hotelsList;
+            if (!String.IsNullOrEmpty(search)){
+                hotelsList = _repository.GetHotelsByNameOrCityName(search)
                     .OrderByDescending(h => h.HotelID)
                     .Skip((page - 1)*PageSize)
                     .Take(PageSize)
                     .ToEnumerable();
-
+            }
+            else{
+                hotelsList =
+                    _repository.GetAll()
+                        .OrderByDescending(h => h.HotelID)
+                        .Skip((page - 1)*PageSize)
+                        .Take(PageSize)
+                        .ToEnumerable();
+            }
             HotelListViewModel hotels = new HotelListViewModel() {
                 Hotels = hotelsList,
                 PagingInfo = new PagingInfo() {
                     CurrentPage = page,
                     ItemsPerPage = PageSize,
                     TotalItems = _repository.GetAll().Count()
-                }
+                },
+                SearchParameter = search
             };
             return View(hotels);
         }
 
-        public PartialViewResult LatestHotels(){
+        public PartialViewResult LatestHotels() {
             return PartialView(_repository.LatestHotels());
         }
 
-        public ActionResult Hotel(int id){
+        public ActionResult Hotel(int id) {
             Hotel hotel = _repository.Get(id);
-            if (hotel != null){
+            if (hotel != null) {
                 return View(hotel);
-            }
-            else{
+            } else {
                 return RedirectToAction("Index", "Home");
             }
         }

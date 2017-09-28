@@ -18,5 +18,10 @@ namespace BookMe.Domain.Concrete.Repository {
         public IEnumerable<Hotel> LatestHotels(){
             return DbSet.Include(h => h.City).Include(h => h.Photos).OrderByDescending(h => h.AddDate).Take(6);
         }
+
+        public IEnumerable<Hotel> GetHotelsByNameOrCityName(string name){
+            return DbSet.Where(h => h.Name.Contains(name) || h.City.Name.Contains(name))
+                        .OrderByDescending(h => h.HotelID).AsEnumerable();
+        }
     }
 }

@@ -8,5 +8,6 @@ using BookMe.Domain.Entities;
 namespace BookMe.Domain.Concrete.Repository.Interfaces {
     public interface IHotelRepository : IRepository<Hotel>{
         IEnumerable<Hotel> LatestHotels();
+        IEnumerable<Hotel> GetHotelsByNameOrCityName(string name);
     }
 }

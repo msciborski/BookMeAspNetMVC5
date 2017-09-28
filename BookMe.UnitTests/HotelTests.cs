@@ -8,13 +8,93 @@ using BookMe.Domain.Concrete.Repository;
 using BookMe.Domain.Concrete.Repository.Interfaces;
 using BookMe.Domain.Entities;
 using BookMe.WebUI.Controllers;
+using BookMe.WebUI.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
 namespace BookMe.UnitTests {
     [TestClass]
     public class HotelTests {
-        //Why does it throw ArgumentNullException
+        [TestMethod]
+        public void CanReturnListOfHotelsForCityName(){
+            //Arrange
+            var cities = new City[]{
+                new City{CityID = 1, Name = "Poznań"},
+                new City(){CityID = 2, Name = "Warszawa"}
+            };
+            var data = new Hotel[]{
+                new Hotel(){HotelID = 1, Name = "H1", City = cities[0]},
+                new Hotel(){HotelID = 2, Name = "H2", City = cities[0]},
+                new Hotel(){HotelID = 3, Name = "H3", City = cities[1]},
+            };
+            Mock<BookMeContext> mockContext = new Mock<BookMeContext>();
+            mockContext.Setup(m => m.Set<Hotel>()).ReturnsDbSet(data);
+            mockContext.Setup(m => m.Hotels).ReturnsDbSet(data);
+            IHotelRepository repository = new HotelRepository(mockContext.Object);
+            HotelController target = new HotelController(repository);
+
+            //Act
+            HotelListViewModel result = (HotelListViewModel) target.List("Poznań").Model;
+            Hotel[] resultHotels = result.Hotels.ToArray();
+            //Assert
+            Assert.AreEqual(resultHotels.Length,2);
+            Assert.AreEqual(resultHotels[0].HotelID, 2);
+            Assert.AreEqual(resultHotels[1].HotelID, 1);
+        }
+        [TestMethod]
+        public void CanReturnListOfHotelsForHotelName(){
+            //Arrange
+            var city = new City(){CityID = 1, Name = "Poznań"};
+            var data = new Hotel[]{
+                new Hotel(){HotelID = 1, Name = "Plaza Hotel", City = city},
+                new Hotel(){HotelID = 2, Name = "Hotel Plaza 2", City = city},
+                new Hotel(){HotelID = 3, Name = "Na pewno Cię nie wybiore Hotel", City = city}
+            };
+            Mock<BookMeContext> mockContext = new Mock<BookMeContext>();
+            mockContext.Setup(m => m.Set<Hotel>()).ReturnsDbSet(data);
+            mockContext.Setup(m => m.Hotels).ReturnsDbSet(data);
+            IHotelRepository repository = new HotelRepository(mockContext.Object);
+            HotelController target = new HotelController(repository);
+            
+            //Act
+            HotelListViewModel result = (HotelListViewModel) target.List("Plaza").Model;
+            Hotel[] resultHotels = result.Hotels.ToArray();
+
+            //Assert
+            Assert.AreEqual(resultHotels.Length,2);
+            Assert.AreEqual(resultHotels[0].Name, "Hotel Plaza 2");
+            Assert.AreEqual(resultHotels[1].Name, "Plaza Hotel");
+        }
+        //Test do poprawy
+        [TestMethod]
+        public void CanReturnAllHotels(){
+            //Arrange
+            var city = new City() {CityID = 1, Name = "Poznań"};
+            var photos = new Photo[]{
+                new Photo(),
+                new Photo()
+            };
+            var data = new Hotel[]{
+                new Hotel(){HotelID = 1, Name = "H1", City = city, Photos = photos},
+                new Hotel(){HotelID = 2, Name = "H2", City = city, Photos = photos},
+                new Hotel(){HotelID = 3, Name = "H3", City = city, Photos = photos},
+                new Hotel(){HotelID = 4, Name = "H4", City = city, Photos = photos},
+                new Hotel(){HotelID = 5, Name = "H5", City = city, Photos = photos},
+                new Hotel(){HotelID = 6, Name = "H6", City = city, Photos = photos},
+            };
+            Mock<BookMeContext> mockContext = new Mock<BookMeContext>();
+            mockContext.Setup(m => m.Set<Hotel>()).ReturnsDbSet(data);
+            mockContext.Setup(m => m.Hotels).ReturnsDbSet(data);
+            IHotelRepository repository = new HotelRepository(mockContext.Object);
+            HotelController target = new HotelController(repository);
+
+            //Act
+            HotelListViewModel result = (HotelListViewModel) target.List().Model;
+
+            //Assert
+            Assert.AreEqual(result.Hotels.Count(), 3);
+            Assert.AreEqual(result.PagingInfo.TotalItems, 6);
+        }
         [TestMethod]
         public void CanReturnTop6MostLatestHotels(){
             //Arrange
@@ -52,7 +132,6 @@ namespace BookMe.UnitTests {
             Assert.AreEqual(result[4].Name, "H3");
             Assert.AreEqual(result[5].Name, "H2");
         }
-
         [TestMethod]
         public void CanReturnSelectedHotel(){
             //Assert

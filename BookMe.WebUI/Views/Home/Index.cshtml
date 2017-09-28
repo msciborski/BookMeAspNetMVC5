@@ -2,6 +2,12 @@
 @{
     ViewBag.Title = "Index";
 }
+<div class="row">
+    @using (Html.BeginForm("List", "Hotel")){
+        @Html.TextBox("search")
+        <input type="submit" value="Search"/>
+    }
+</div>
 <h2>Najnowsze hotele:</h2>
 @Html.Action("LatestHotels","Hotel")
 <div class="row">
