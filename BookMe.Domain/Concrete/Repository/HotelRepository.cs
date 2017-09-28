@@ -20,7 +20,7 @@ namespace BookMe.Domain.Concrete.Repository {
         }
 
         public IEnumerable<Hotel> GetHotelsByNameOrCityName(string name){
-            return DbSet.Where(h => h.Name.Contains(name) || h.City.Name.Contains(name))
+            return DbSet.Where(h => name == null || h.Name.Contains(name) || h.City.Name.Contains(name))
                         .OrderByDescending(h => h.HotelID).AsEnumerable();
         }
     }

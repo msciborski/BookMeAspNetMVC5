@@ -19,29 +19,15 @@ namespace BookMe.WebUI.Controllers {
             PageSize = 3;
         }
 
-        public ViewResult List(string search = null, int page = 1) {
-            IEnumerable<Hotel> hotelsList;
-            if (!String.IsNullOrEmpty(search)){
-                hotelsList = _repository.GetHotelsByNameOrCityName(search)
-                    .OrderByDescending(h => h.HotelID)
-                    .Skip((page - 1)*PageSize)
-                    .Take(PageSize)
-                    .ToEnumerable();
-            }
-            else{
-                hotelsList =
-                    _repository.GetAll()
-                        .OrderByDescending(h => h.HotelID)
-                        .Skip((page - 1)*PageSize)
-                        .Take(PageSize)
-                        .ToEnumerable();
-            }
+        public ViewResult List(string search = null, int page = 1){
+            IEnumerable<Hotel> hotelsList = _repository.GetHotelsByNameOrCityName(search).Skip((page - 1) * PageSize).Take(PageSize).ToEnumerable();
             HotelListViewModel hotels = new HotelListViewModel() {
                 Hotels = hotelsList,
                 PagingInfo = new PagingInfo() {
                     CurrentPage = page,
                     ItemsPerPage = PageSize,
-                    TotalItems = _repository.GetAll().Count()
+                    TotalItems = search == null ? _repository.GetAll().Count() : 
+                                                  _repository.GetHotelsByNameOrCityName(search).Count()
                 },
                 SearchParameter = search
             };
