@@ -3,7 +3,7 @@
     ViewBag.Title = "Index";
 }
 <div class="row">
-    @using (Html.BeginForm("List", "Hotel")){
+    @using (Html.BeginForm("List", "Hotel", FormMethod.Post, new { page = 1})){
         @Html.TextBox("search")
         <input type="submit" value="Search"/>
     }
@@ -15,7 +15,7 @@
         <h2>Najpopularniejsze miasta:</h2>
         @Html.Action("MostPopularCities", "City")
     </div>
-    <div class="col-md-6">
+    <div class="col-md-6">  
         <div class="row">
             <h2>Najnowsze pokoje:</h2>
             @Html.Action("LatestRooms", "Room")

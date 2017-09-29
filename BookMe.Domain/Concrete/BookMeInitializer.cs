@@ -34,8 +34,6 @@ namespace BookMe.Domain.Concrete {
             hotelList.ForEach(h => context.Hotels.Add(h));
             context.SaveChanges();
 
-
-
             var roomList = new List<Room>(){
                 new Room() {Name = "Pokój 3-osobowy", RoomType = RoomType.Pokój, Capacity = 3, Price = 45.5M, HotelID = 1, AddDate = DateTime.Parse("16.07.2016")},
                 new Room() {Name = "Pokój 2-osobowy", RoomType = RoomType.Pokój, Capacity = 2, Price = 30.0M, HotelID = 1, AddDate = DateTime.Parse("17.07.2016")},
@@ -61,6 +59,21 @@ namespace BookMe.Domain.Concrete {
             roomList.ForEach(r => context.Rooms.Add(r));
             context.SaveChanges();
 
+            var reservationsList = new List<Reservation>(){
+                new Reservation() {StartDate = DateTime.Parse("21.08.2016"), EndDate = DateTime.Parse("24.08.2016"), RoomID = 1},
+                new Reservation() {StartDate = DateTime.Parse("25.08.2016"), EndDate = DateTime.Parse("30.08.2016"), RoomID = 1},
+                new Reservation() {StartDate = DateTime.Parse("4.09.2016"), EndDate = DateTime.Parse("08.09.2016"),  RoomID = 1},
+                new Reservation() {StartDate = DateTime.Parse("12.09.2016"), EndDate = DateTime.Parse("14.09.2016"), RoomID = 2},
+                new Reservation() {StartDate = DateTime.Parse("18.09.2016"), EndDate = DateTime.Parse("20.09.2016"), RoomID = 2},
+                new Reservation() {StartDate = DateTime.Parse("24.09.2016"), EndDate = DateTime.Parse("27.09.2016"), RoomID = 2},
+                new Reservation() {StartDate = DateTime.Parse("08.10.2016"), EndDate = DateTime.Parse("10.10.2016"), RoomID = 3},
+                new Reservation() {StartDate = DateTime.Parse("12.10.2016"), EndDate = DateTime.Parse("16.10.2016"), RoomID = 3},
+                new Reservation() {StartDate = DateTime.Parse("19.10.2016"), EndDate = DateTime.Parse("25.10.2016"), RoomID = 3},
+                new Reservation() {StartDate = DateTime.Parse("24.09.2016"), EndDate = DateTime.Parse("27.09.2016"), RoomID = 3},
+            };
+            reservationsList.ForEach(r => context.Reservations.Add(r));
+            context.SaveChanges();
+
             String fileHotelName = @"C:\Users\mscib\Documents\hotel.jpg";
             String fileRoomName = @"C:\Users\mscib\Documents\room.jpg";
             byte[] bytePhoto = GetImageByteArray(fileHotelName);
@@ -75,6 +88,8 @@ namespace BookMe.Domain.Concrete {
             }
             context.SaveChanges();
         }
+        
+
 
         private void CreatePhotoList(int count, byte[] bytePhoto, String mimeType, String type, List<Photo> photos){
             int startIndex = photos.Count;

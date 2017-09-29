@@ -18,6 +18,8 @@ namespace BookMe.Domain.Concrete {
         public virtual DbSet<Hotel> Hotels { get; set; }
         public virtual DbSet<Room> Rooms { get; set; }
         public virtual DbSet<Photo> Photos { get; set; }
+        public virtual DbSet<Reservation> Reservations { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder){
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
         }

@@ -94,6 +94,7 @@
     <Compile Include="Entities\City.cs" />
     <Compile Include="Entities\Hotel.cs" />
     <Compile Include="Entities\Photo.cs" />
+    <Compile Include="Entities\Reservation.cs" />
     <Compile Include="Entities\Room.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
