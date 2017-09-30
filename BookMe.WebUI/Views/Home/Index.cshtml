@@ -1,25 +1,43 @@
-﻿ 
+﻿
 @{
     ViewBag.Title = "Index";
 }
 <div class="row">
-    @using (Html.BeginForm("List", "Hotel", FormMethod.Post, new { page = 1})){
-        @Html.TextBox("search")
-        <input type="submit" value="Search"/>
+    @using (@Html.BeginForm("List", "Hotel", FormMethod.Get, new { @class = "form-group" })) {
+        @Html.TextBox("search", null, new { @class = "form-control" })
+        <div class="input-group date" id="datetimepicker">
+            @Html.TextBox("startDate", null, new { @class = "form-control" })
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+        </div>
+        <div class="input-group datepicker" id="datetimepicker1">
+            @Html.TextBox("endDate", null, new { @class = "form-control" })
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+        </div>
+        <input type="submit" value="Search" />
     }
 </div>
+<script type="text/javascript">
+    $(function () {
+        $('#datetimepicker').datetimepicker();
+        $('#datetimepicker1').datetimepicker();
+    });
+</script>
 <h2>Najnowsze hotele:</h2>
-@Html.Action("LatestHotels","Hotel")
+@Html.Action("LatestHotels", "Hotel")
 <div class="row">
     <div class="col-md-6">
         <h2>Najpopularniejsze miasta:</h2>
         @Html.Action("MostPopularCities", "City")
     </div>
-    <div class="col-md-6">  
+    <div class="col-md-6">
         <div class="row">
             <h2>Najnowsze pokoje:</h2>
             @Html.Action("LatestRooms", "Room")
         </div>
     </div>
-
 </div>
+
