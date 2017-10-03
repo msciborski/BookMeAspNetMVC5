@@ -1,16 +1,21 @@
-﻿<!DOCTYPE html>
+﻿@using System.Web.Optimization
+<!DOCTYPE html>
 <html>
 <head>
-
-    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    @*<script src="~/Scripts/jquery-1.12.4.min.js"></script>
     <script src="~/Scripts/moment.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
     <script src="~/Scripts/bootstrap-datetimepicker.min.js"></script>
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
-    <link href="~/Content/bootstrap-datetimepicker.min.css" rel="stylesheet" />
-    @*<script src="~/Scripts/bootstrap.js"></script>
-    <link href="~/Content/bootstrap.css" rel="stylesheet" />
-    <link href="~/Content/bootstrap-theme.css" rel="stylesheet" />*@
+    <link href="~/Content/bootstrap-datetimepicker.min.css" rel="stylesheet" />*@
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/moment")
+        @Scripts.Render("~/bundles/bootstrap")
+        @Scripts.Render("~/bundles/bootstrap-datetimepicker")
+        @Scripts.Render("~/bundles/jqueryui")
+        @Styles.Render("~/Content/bootstrap")
+        @Styles.Render("~/Content/bootstrap-datetimepicker")
+        @Styles.Render("~/Content/themes/base/css")
     <style>
         .vcenter {
             display: inline-block;
