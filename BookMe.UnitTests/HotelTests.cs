@@ -16,6 +16,29 @@ namespace BookMe.UnitTests {
     [TestClass]
     public class HotelTests {
         [TestMethod]
+        public void CanReturnHotelsWithRoomsAvaiableAtDate(){
+            //Arrange
+            Hotel[] data = CreateHotelsWithRoomsReservations().ToArray();
+            Mock<BookMeContext> mockContext = new Mock<BookMeContext>();
+            mockContext.Setup(m => m.Set<Hotel>()).ReturnsDbSet(data);
+            mockContext.Setup(m => m.Hotels).ReturnsDbSet(data);
+            IHotelRepository repository = new HotelRepository(mockContext.Object);
+            HotelController target = new HotelController(repository);
+
+            //Act
+            HotelListViewModel result =
+                (HotelListViewModel) target.List(null, DateTime.Parse("22.08.2017"), DateTime.Parse("24.08.2017")).Model;
+            Hotel[] hotels = result.Hotels.ToArray();
+            
+            //Assert
+            Assert.AreEqual(result.PagingInfo.TotalItems, 3);
+            Assert.AreEqual(hotels[0].Name, "H2");
+            Assert.AreEqual(hotels[1].Name, "H3");
+            Assert.AreEqual(hotels[2].Name, "H4");
+
+
+        }
+        [TestMethod]
         public void CanReturnListOfHotelsForCityName(){
             //Arrange
             var cities = new City[]{
@@ -169,6 +192,63 @@ namespace BookMe.UnitTests {
 
             //Assert
             Assert.IsNotInstanceOfType(result, typeof(ViewResult));
+        }
+
+        private IEnumerable<Hotel> CreateHotelsWithRoomsReservations(){
+            var reservationsData = new List<Reservation[]>(){
+                new Reservation[]{
+                    new Reservation() {ReservationID = 1, RoomID = 1, StartDate = DateTime.Parse("21.08.2017"), EndDate = DateTime.Parse("24.08.2017")},
+                    new Reservation() {ReservationID = 2, RoomID = 1, StartDate = DateTime.Parse("25.08.2017"), EndDate = DateTime.Parse("29.08.2017")},
+                    new Reservation() {ReservationID = 3, RoomID = 1, StartDate = DateTime.Parse("04.09.2017"), EndDate = DateTime.Parse("08.09.2017")}
+                },
+                new Reservation[]{
+                    new Reservation() {ReservationID = 4, RoomID = 2, StartDate = DateTime.Parse("22.08.2017"), EndDate = DateTime.Parse("25.08.2017")}
+                },
+                new Reservation[]{
+                    new Reservation() {ReservationID = 5, RoomID = 3, StartDate = DateTime.Parse("04.05.2017"), EndDate = DateTime.Parse("06.05.2017")},
+                    new Reservation() {ReservationID = 6, RoomID = 3, StartDate = DateTime.Parse("08.05.2017"), EndDate = DateTime.Parse("11.05.2017")}
+                },
+                new Reservation[]{
+                    new Reservation() {ReservationID = 7, RoomID = 4, StartDate = DateTime.Parse("15.05.2017"), EndDate = DateTime.Parse("18.05.2017")}
+                },
+                new Reservation[]{
+                    new Reservation() {ReservationID = 9, RoomID = 5, StartDate = DateTime.Parse("04.03.2017"), EndDate = DateTime.Parse("06.03.2017")},
+                    new Reservation() {ReservationID = 10, RoomID = 5, StartDate = DateTime.Parse("08.03.2017"), EndDate = DateTime.Parse("11.03.2017")}
+                },
+                new Reservation[]{
+                    new Reservation() {ReservationID = 11, RoomID = 6, StartDate = DateTime.Parse("22.08.2017"), EndDate = DateTime.Parse("25.08.2017")},
+                    new Reservation() {ReservationID = 12, RoomID = 6, StartDate = DateTime.Parse("04.08.2017"), EndDate = DateTime.Parse("07.08.2017")},
+                    new Reservation() {ReservationID = 13, RoomID = 6, StartDate = DateTime.Parse("05.04.2017"), EndDate = DateTime.Parse("10.08.2017")}
+                },
+                new Reservation[]{
+                    new Reservation() {ReservationID = 14, RoomID = 7, StartDate = DateTime.Parse("08.02.2017"), EndDate = DateTime.Parse("10.02.2017")}
+                }
+            };
+            //Arramge
+            var roomsData = new List<Room[]>(){
+                new Room[]{
+                    new Room(){RoomID = 1, HotelID = 1, Name = "H1R1", Reservations = reservationsData[0]},
+                    new Room(){RoomID = 2, HotelID = 1, Name = "H1R2", Reservations = reservationsData[1]}
+                },
+                new Room[]{
+                    new Room(){RoomID = 3, HotelID = 2, Name = "H2R1", Reservations = reservationsData[2]},
+                    new Room(){RoomID = 4, HotelID = 2, Name = "H2R2", Reservations = reservationsData[3]}
+                },
+                new Room[]{
+                    new Room(){RoomID = 5, HotelID = 3, Name = "H3R1", Reservations = reservationsData[4]}
+                },
+                new Room[]{
+                    new Room(){RoomID = 6, HotelID = 4, Name = "H4R1", Reservations = reservationsData[5]},
+                    new Room(){RoomID = 7, HotelID = 4, Name = "H4R2", Reservations = reservationsData[6]}
+                }
+            };
+            var data = new Hotel[]{
+                new Hotel(){HotelID = 1, Name = "H1", Rooms = roomsData[0]}, //Ten hotel nie ma być na liście
+                new Hotel(){HotelID = 2, Name = "H2", Rooms = roomsData[1]},
+                new Hotel(){HotelID = 3, Name = "H3", Rooms = roomsData[2]},
+                new Hotel(){HotelID = 4, Name = "H4", Rooms = roomsData[3]},
+            };
+            return data;
         }
         private Mock<DbSet<T>> GetMockDbSet<T>(IQueryable<T> entities) where T : class {
             var mockSet = new Mock<DbSet<T>>();

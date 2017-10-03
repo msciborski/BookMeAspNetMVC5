@@ -60,13 +60,13 @@ namespace BookMe.Domain.Concrete {
             context.SaveChanges();
 
             var reservationsList = new List<Reservation>(){
-                new Reservation() {StartDate = DateTime.Parse("21.08.2016"), EndDate = DateTime.Parse("24.08.2016"), RoomID = 1},
+                new Reservation() {StartDate = DateTime.Parse("21.08.2017"), EndDate = DateTime.Parse("24.08.2017"), RoomID = 1},
                 new Reservation() {StartDate = DateTime.Parse("25.08.2016"), EndDate = DateTime.Parse("30.08.2016"), RoomID = 1},
-                new Reservation() {StartDate = DateTime.Parse("4.09.2016"), EndDate = DateTime.Parse("08.09.2016"),  RoomID = 1},
-                new Reservation() {StartDate = DateTime.Parse("12.09.2016"), EndDate = DateTime.Parse("14.09.2016"), RoomID = 2},
+                new Reservation() {StartDate = DateTime.Parse("04.09.2016"), EndDate = DateTime.Parse("08.09.2016"), RoomID = 1},
+                new Reservation() {StartDate = DateTime.Parse("21.08.2017"), EndDate = DateTime.Parse("24.08.2017"), RoomID = 2},
                 new Reservation() {StartDate = DateTime.Parse("18.09.2016"), EndDate = DateTime.Parse("20.09.2016"), RoomID = 2},
                 new Reservation() {StartDate = DateTime.Parse("24.09.2016"), EndDate = DateTime.Parse("27.09.2016"), RoomID = 2},
-                new Reservation() {StartDate = DateTime.Parse("08.10.2016"), EndDate = DateTime.Parse("10.10.2016"), RoomID = 3},
+                new Reservation() {StartDate = DateTime.Parse("21.08.2017"), EndDate = DateTime.Parse("24.08.2017"), RoomID = 3},
                 new Reservation() {StartDate = DateTime.Parse("12.10.2016"), EndDate = DateTime.Parse("16.10.2016"), RoomID = 3},
                 new Reservation() {StartDate = DateTime.Parse("19.10.2016"), EndDate = DateTime.Parse("25.10.2016"), RoomID = 3},
                 new Reservation() {StartDate = DateTime.Parse("24.09.2016"), EndDate = DateTime.Parse("27.09.2016"), RoomID = 3},

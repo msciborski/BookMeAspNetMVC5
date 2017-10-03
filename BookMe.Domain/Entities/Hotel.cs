@@ -14,7 +14,7 @@ namespace BookMe.Domain.Entities {
 
         public int CityID { get; set; }
         public virtual City City { get; set; }
-        public virtual IEnumerable<Room> Rooms { get; set; }
+        public virtual ICollection<Room> Rooms { get; set; }
         public virtual ICollection<Photo> Photos { get; set; }
     }
 }

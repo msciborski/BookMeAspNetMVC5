@@ -8,5 +8,5 @@
     <h3>@Html.ActionLink(@hotel.Name,"Hotel","Hotel", new {id = @hotel.HotelID}, null)</h3>
 }
 <div>
-    @Html.PageLinks(Model.PagingInfo,x => Url.Action("List","Hotel",new {page = x, search = Model.SearchParameter},null))
+    @Html.PageLinks(Model.PagingInfo,x => Url.Action("List","Hotel",new {page = x, search = Model.SearchParameter, startDate = Model.ChoosenArrival, endDate = Model.ChoosenDeparture},null))
 </div>

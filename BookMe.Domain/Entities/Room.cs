@@ -19,5 +19,6 @@ namespace BookMe.Domain.Entities {
         public int HotelID { get; set; }
         public virtual Hotel Hotel { get; set; }
         public virtual ICollection<Photo> Photos { get; set; }
+        public virtual ICollection<Reservation> Reservations { get; set; }
     }
 }

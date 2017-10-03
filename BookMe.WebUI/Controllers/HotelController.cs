@@ -20,19 +20,28 @@ namespace BookMe.WebUI.Controllers {
             PageSize = 3;
         }
 
-        public ViewResult List(string search, int page = 1){
-            IEnumerable<Hotel> hotelsList = _repository.GetHotelsByNameOrCityName(search).Skip((page - 1) * PageSize).Take(PageSize).ToEnumerable();
-            HotelListViewModel hotels = new HotelListViewModel() {
-                Hotels = hotelsList,
-                PagingInfo = new PagingInfo() {
+        public ViewResult List(string search = null, DateTime? startDate = null, DateTime? endDate = null, int page = 1){
+            IEnumerable<Hotel> hotels;
+            if (startDate == null || endDate == null){
+                hotels = _repository.GetHotelsByNameOrCityName(search, page, PageSize);
+            }
+            else{
+                hotels = _repository.GetHotelsByNameOrCityNameFreeAtDates(search, (DateTime) startDate,
+                    (DateTime) endDate, page, PageSize);
+            }
+            HotelListViewModel hotelViewModel = new HotelListViewModel(){
+                Hotels = hotels,
+                PagingInfo = new PagingInfo(){
                     CurrentPage = page,
                     ItemsPerPage = PageSize,
-                    TotalItems = search == null ? _repository.GetAll().Count() : 
-                                                  _repository.GetHotelsByNameOrCityName(search).Count()
+                    TotalItems = startDate == null || endDate == null ? _repository.GetHotelsByNameOrCityName(search).Count() : 
+                                                                _repository.GetHotelsByNameOrCityNameFreeAtDates(search,(DateTime)startDate, (DateTime) endDate).Count()
                 },
-                SearchParameter = search
+                ChoosenArrival = startDate,
+                ChoosenDeparture = endDate
+                
             };
-            return View(hotels);
+            return View(hotelViewModel);
         }
         public PartialViewResult LatestHotels() {
             return PartialView(_repository.LatestHotels());

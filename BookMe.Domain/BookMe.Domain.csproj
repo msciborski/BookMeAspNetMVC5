@@ -81,6 +81,7 @@
   <ItemGroup>
     <Compile Include="Concrete\BookMeContext.cs" />
     <Compile Include="Concrete\BookMeInitializer.cs" />
+    <Compile Include="Concrete\Helpers\TestableDbFunctions.cs" />
     <Compile Include="Concrete\Repository\CityRepository.cs" />
     <Compile Include="Concrete\Repository\HotelRepository.cs" />
     <Compile Include="Concrete\Repository\Interfaces\ICityRepository.cs" />

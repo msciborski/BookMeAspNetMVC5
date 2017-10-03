@@ -9,5 +9,8 @@ namespace BookMe.WebUI.Models {
         public IEnumerable<Hotel> Hotels { get; set; }
         public PagingInfo PagingInfo { get; set; }
         public String SearchParameter { get; set; }
+        public DateTime? ChoosenArrival { get; set; }
+        public DateTime? ChoosenDeparture { get; set; }
+
     }
 }

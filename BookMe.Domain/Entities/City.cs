@@ -10,7 +10,7 @@ namespace BookMe.Domain.Entities {
         public string Name { get; set; }
         public string ZipCode { get; set; }
 
-        public virtual IEnumerable<Hotel> Hotels { get; set; }
-        public virtual IEnumerable<Photo> Photos { get; set; }
+        public virtual ICollection<Hotel> Hotels { get; set; }
+        public virtual ICollection<Photo> Photos { get; set; }
     }
 }
