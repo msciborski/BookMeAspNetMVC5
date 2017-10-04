@@ -38,6 +38,65 @@ namespace BookMe.UnitTests {
 
 
         }
+
+        [TestMethod]
+        public void CanReturnListHotelsWithAvaiableDataAndAdultsInRoom(){
+            //Arrange
+            Hotel[] data = CreateHotelsWithRoomsReservations().ToArray();
+            Mock<BookMeContext> mockContext = new Mock<BookMeContext>();
+            mockContext.Setup(m => m.Set<Hotel>()).ReturnsDbSet(data);
+            mockContext.Setup(m => m.Hotels).ReturnsDbSet(data);
+            IHotelRepository repository = new HotelRepository(mockContext.Object);
+            HotelController target = new HotelController(repository);
+
+            //Act
+            HotelListViewModel result = (HotelListViewModel) target.List(null, DateTime.Parse("22.08.2017"), DateTime.Parse("24.08.2017"),1, 1).Model;
+            Hotel[] hotelsResult = result.Hotels.ToArray();
+      
+            //Assert
+            Assert.AreEqual(result.PagingInfo.TotalItems, 2);
+            Assert.AreEqual(hotelsResult[0].Name, "H2");
+            Assert.AreEqual(hotelsResult[1].Name, "H4");
+        }
+
+        [TestMethod]
+        public void CanReturnListHotelsWithAvaiableDataAndAdultsKidsInRoom(){
+            //Arrange
+            Hotel[] data = CreateHotelsWithRoomsReservations().ToArray();
+            Mock<BookMeContext> mockContext = new Mock<BookMeContext>();
+            mockContext.Setup(m => m.Set<Hotel>()).ReturnsDbSet(data);
+            mockContext.Setup(m => m.Hotels).ReturnsDbSet(data);
+            IHotelRepository repository = new HotelRepository(mockContext.Object);
+            HotelController target = new HotelController(repository);
+
+            //Act
+            HotelListViewModel result = (HotelListViewModel)target.List(null, DateTime.Parse("22.08.2017"), DateTime.Parse("24.08.2017"), 3, 2).Model;
+            Hotel[] hotelsResult = result.Hotels.ToArray();
+
+            //Assert
+            Assert.AreEqual(result.PagingInfo.TotalItems, 1);
+            Assert.AreEqual(hotelsResult[0].Name, "H3");
+        }
+        [TestMethod]
+        public void CanReturnListHotelsWithAvaiableDataAndKidsInRoom(){
+            //Arrange
+            Hotel[] data = CreateHotelsWithRoomsReservations().ToArray();
+            Mock<BookMeContext> mockContext = new Mock<BookMeContext>();
+            mockContext.Setup(m => m.Set<Hotel>()).ReturnsDbSet(data);
+            mockContext.Setup(m => m.Hotels).ReturnsDbSet(data);
+            IHotelRepository repository = new HotelRepository(mockContext.Object);
+            HotelController target = new HotelController(repository);
+
+            //Act
+            HotelListViewModel result = (HotelListViewModel)target.List(null, DateTime.Parse("22.08.2017"), DateTime.Parse("24.08.2017"), 1).Model;
+            Hotel[] hotelsResult = result.Hotels.ToArray();
+
+            //Assert
+            Assert.AreEqual(result.PagingInfo.TotalItems, 2);
+            Assert.AreEqual(hotelsResult[0].Name, "H2");
+            Assert.AreEqual(hotelsResult[1].Name, "H4");
+        }
+
         [TestMethod]
         public void CanReturnListOfHotelsForCityName(){
             //Arrange
@@ -60,9 +119,13 @@ namespace BookMe.UnitTests {
             HotelListViewModel result = (HotelListViewModel) target.List("Poznań").Model;
             Hotel[] resultHotels = result.Hotels.ToArray();
             //Assert
-            Assert.AreEqual(resultHotels.Length,2);
-            Assert.AreEqual(resultHotels[0].HotelID, 2);
-            Assert.AreEqual(resultHotels[1].HotelID, 1);
+            Assert.AreEqual(result.PagingInfo.TotalItems, 2);
+            Assert.AreEqual(resultHotels.Length, 2);
+            Assert.AreEqual(resultHotels[0].Name, "H1");
+            Assert.AreEqual(resultHotels[1].Name, "H2");
+            //Assert.AreEqual(resultHotels.Length,2);
+            //Assert.AreEqual(resultHotels[0].HotelID, 2);
+            //Assert.AreEqual(resultHotels[1].HotelID, 1);
         }
         [TestMethod]
         public void CanReturnListOfHotelsForHotelName(){
@@ -85,10 +148,9 @@ namespace BookMe.UnitTests {
 
             //Assert
             Assert.AreEqual(resultHotels.Length,2);
-            Assert.AreEqual(resultHotels[0].Name, "Hotel Plaza 2");
-            Assert.AreEqual(resultHotels[1].Name, "Plaza Hotel");
+            Assert.AreEqual(resultHotels[0].Name, "Plaza Hotel");
+            Assert.AreEqual(resultHotels[1].Name, "Hotel Plaza 2");
         }
-        //Test do poprawy
         [TestMethod]
         public void CanReturnAllHotels(){
             //Arrange
@@ -227,25 +289,25 @@ namespace BookMe.UnitTests {
             //Arramge
             var roomsData = new List<Room[]>(){
                 new Room[]{
-                    new Room(){RoomID = 1, HotelID = 1, Name = "H1R1", Reservations = reservationsData[0]},
-                    new Room(){RoomID = 2, HotelID = 1, Name = "H1R2", Reservations = reservationsData[1]}
+                    new Room(){RoomID = 1, HotelID = 1, Name = "H1R1", Reservations = reservationsData[0], Capacity = 1, KidsCapacity = 1},
+                    new Room(){RoomID = 2, HotelID = 1, Name = "H1R2", Reservations = reservationsData[1], Capacity = 1, KidsCapacity = 1}
                 },
                 new Room[]{
-                    new Room(){RoomID = 3, HotelID = 2, Name = "H2R1", Reservations = reservationsData[2]},
-                    new Room(){RoomID = 4, HotelID = 2, Name = "H2R2", Reservations = reservationsData[3]}
+                    new Room(){RoomID = 3, HotelID = 2, Name = "H2R1", Reservations = reservationsData[2], Capacity = 1, KidsCapacity = 1},
+                    new Room(){RoomID = 4, HotelID = 2, Name = "H2R2", Reservations = reservationsData[3], Capacity = 1, KidsCapacity = 1}
                 },
                 new Room[]{
-                    new Room(){RoomID = 5, HotelID = 3, Name = "H3R1", Reservations = reservationsData[4]}
+                    new Room(){RoomID = 5, HotelID = 3, Name = "H3R1", Reservations = reservationsData[4], Capacity = 3, KidsCapacity = 2}
                 },
                 new Room[]{
-                    new Room(){RoomID = 6, HotelID = 4, Name = "H4R1", Reservations = reservationsData[5]},
-                    new Room(){RoomID = 7, HotelID = 4, Name = "H4R2", Reservations = reservationsData[6]}
+                    new Room(){RoomID = 6, HotelID = 4, Name = "H4R1", Reservations = reservationsData[5], Capacity = 1, KidsCapacity = 1},
+                    new Room(){RoomID = 7, HotelID = 4, Name = "H4R2", Reservations = reservationsData[6], Capacity = 1, KidsCapacity = 1}
                 }
             };
             var data = new Hotel[]{
-                new Hotel(){HotelID = 1, Name = "H1", Rooms = roomsData[0]}, //Ten hotel nie ma być na liście
+                new Hotel(){HotelID = 1, Name = "H1", Rooms = roomsData[0]}, //Tego nie zwróci
                 new Hotel(){HotelID = 2, Name = "H2", Rooms = roomsData[1]},
-                new Hotel(){HotelID = 3, Name = "H3", Rooms = roomsData[2]},
+                new Hotel(){HotelID = 3, Name = "H3", Rooms = roomsData[2]}, //Tego nie zwróci
                 new Hotel(){HotelID = 4, Name = "H4", Rooms = roomsData[3]},
             };
             return data;

@@ -20,26 +20,20 @@ namespace BookMe.WebUI.Controllers {
             PageSize = 3;
         }
 
-        public ViewResult List(string search = null, DateTime? startDate = null, DateTime? endDate = null, int page = 1){
-            IEnumerable<Hotel> hotels;
-            if (startDate == null || endDate == null){
-                hotels = _repository.GetHotelsByNameOrCityName(search, page, PageSize);
-            }
-            else{
-                hotels = _repository.GetHotelsByNameOrCityNameFreeAtDates(search, (DateTime) startDate,
-                    (DateTime) endDate, page, PageSize);
-            }
+        public ViewResult List(string search = null, DateTime? startDate = null, DateTime? endDate = null, int? adultsInRoom = null, int? kidsInRoom = null, int page = 1){
+            IEnumerable<Hotel> hotels = _repository.GetHotelsFilteredBySearchDatesCapacity(search, startDate,
+                endDate, adultsInRoom, kidsInRoom, page, PageSize);
             HotelListViewModel hotelViewModel = new HotelListViewModel(){
                 Hotels = hotels,
                 PagingInfo = new PagingInfo(){
                     CurrentPage = page,
                     ItemsPerPage = PageSize,
-                    TotalItems = startDate == null || endDate == null ? _repository.GetHotelsByNameOrCityName(search).Count() : 
-                                                                _repository.GetHotelsByNameOrCityNameFreeAtDates(search,(DateTime)startDate, (DateTime) endDate).Count()
+                    TotalItems = _repository.GetHotelsFilteredBySearchDatesCapacity(search, startDate, endDate, adultsInRoom, kidsInRoom).Count()
                 },
                 ChoosenArrival = startDate,
-                ChoosenDeparture = endDate
-                
+                ChoosenDeparture = endDate,
+                AdultsCapacity = adultsInRoom,
+                KidsCapacity = kidsInRoom
             };
             return View(hotelViewModel);
         }
