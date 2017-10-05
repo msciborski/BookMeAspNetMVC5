@@ -22,17 +22,17 @@ namespace BookMe.Domain.Concrete.Repository {
             return DbSet.Include(h => h.City).Include(h => h.Photos).OrderByDescending(h => h.AddDate).Take(6);
         }
 
-        public IEnumerable<Hotel> GetHotelsByNameOrCityName(string search) {
+        public IEnumerable<Hotel> GetHotelsFilteredBySearch(string search) {
             return DbSet.Where(h => search == null || h.Name.Contains(search) || h.City.Name.Contains(search))
                         .OrderByDescending(h => h.HotelID).AsEnumerable();
         }
 
-        public IEnumerable<Hotel> GetHotelsByNameOrCityName(string search, int page, int pageSize) {
-            return GetHotelsByNameOrCityName(search).Skip((page - 1) * pageSize).Take(pageSize);
+        public IEnumerable<Hotel> GetHotelsFilteredBySearch(string search, int page, int pageSize) {
+            return GetHotelsFilteredBySearch(search).Skip((page - 1) * pageSize).Take(pageSize);
         }
 
         //Nadal kurwa nie dziala, ja jebie
-        public IEnumerable<Hotel> GetHotelsByNameOrCityNameFreeAtDates(string search, DateTime startDate, DateTime endDate){
+        public IEnumerable<Hotel> GetHotelsFilteredBySearchDates(string search, DateTime startDate, DateTime endDate){
             DateTime endOfTheYear = new DateTime(DateTime.Today.Year,12,31);
             //return DbSet.Where(h => search == null || h.Name.Contains(search) || h.City.Name.Contains(search))
             //    .Where(h => h.Rooms.Any(r => r.Reservations.All(t => t.EndDate < startDate || t.StartDate > endDate)));
@@ -42,8 +42,35 @@ namespace BookMe.Domain.Concrete.Repository {
             .Where(h => h.Rooms.Any(r => r.Reservations.All(t => TestableDbFunctions.DiffDays(t.EndDate, endOfTheYear) > TestableDbFunctions.DiffDays(startDate, endOfTheYear) || TestableDbFunctions.DiffDays(t.StartDate, endOfTheYear) < TestableDbFunctions.DiffDays(endDate, endOfTheYear))));
         }
 
-        public IEnumerable<Hotel> GetHotelsByNameOrCityNameFreeAtDates(string search, DateTime startDate, DateTime endDate, int page, int pageSize){
-            return GetHotelsByNameOrCityNameFreeAtDates(search, startDate, endDate).Skip((page - 1) * pageSize).Take(pageSize);
+        public IEnumerable<Hotel> GetHotelsFilteredBySearchDates(string search, DateTime startDate, DateTime endDate, int page, int pageSize){
+            return GetHotelsFilteredBySearchDates(search, startDate, endDate).Skip((page - 1) * pageSize).Take(pageSize);
+        }
+
+        public IEnumerable<Hotel> GetHotelsFilteredBySearchDatesAdultsKidsInRoom(string search, DateTime? startDate, DateTime? endDate,
+            int? adults, int kids){
+            DateTime endOfTheYear = new DateTime(DateTime.Today.Year, 12, 31);
+            var query = DbSet.Where(h => search == null || h.Name.Contains(search) || h.City.Name.Contains(search));
+            if (startDate.HasValue && endDate.HasValue){
+                query = query.Where(h => h.Rooms
+                    .Any(r => r.Reservations
+                            .All(t => TestableDbFunctions.DiffDays(t.EndDate, endOfTheYear) > TestableDbFunctions.DiffDays(startDate,endOfTheYear) || 
+                                    TestableDbFunctions.DiffDays(t.StartDate,endOfTheYear) < TestableDbFunctions.DiffDays(endDate, endOfTheYear))));
+            }
+            if (adults.HasValue) {
+                query = query.Where(h => h.Rooms.Any(r => r.Capacity == adults));
+            }
+            if (kids != 0){
+                query = query.Where(h => h.Rooms.Any(r => r.KidsCapacity >= kids));
+            }
+            return query.AsEnumerable();
+        }
+
+        public IEnumerable<Hotel> GetHotelsFilteredBySearchDatesAdultsKidsInRoom(string search, DateTime? startDate, DateTime? endDate,
+            int? adults, int kids, int page, int pageSize){
+            return
+                GetHotelsFilteredBySearchDatesAdultsKidsInRoom(search, startDate, endDate, adults, kids)
+                    .Skip((page - 1)*pageSize)
+                    .Take(pageSize);
         }
     }
 }

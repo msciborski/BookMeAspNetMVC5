@@ -20,28 +20,22 @@ namespace BookMe.WebUI.Controllers {
             PageSize = 3;
         }
 
-        public ViewResult List(string search = null, DateTime? startDate = null, DateTime? endDate = null, int page = 1){
-            IEnumerable<Hotel> hotels;
-            if (startDate == null || endDate == null){
-                hotels = _repository.GetHotelsByNameOrCityName(search, page, PageSize);
-            }
-            else{
-                hotels = _repository.GetHotelsByNameOrCityNameFreeAtDates(search, (DateTime) startDate,
-                    (DateTime) endDate, page, PageSize);
-            }
-            HotelListViewModel hotelViewModel = new HotelListViewModel(){
+        public ViewResult List(string search = null, DateTime? startDate = null, DateTime? endDate = null, int? adultsInRoom = null, int kidsInRoom = 0, int page = 1){
+            IEnumerable<Hotel> hotels = _repository.GetHotelsFilteredBySearchDatesAdultsKidsInRoom(
+                                                        search, startDate, endDate, adultsInRoom, kidsInRoom, page, PageSize);
+            HotelListViewModel hotelListViewModel = new HotelListViewModel(){
                 Hotels = hotels,
                 PagingInfo = new PagingInfo(){
                     CurrentPage = page,
                     ItemsPerPage = PageSize,
-                    TotalItems = startDate == null || endDate == null ? _repository.GetHotelsByNameOrCityName(search).Count() : 
-                                                                _repository.GetHotelsByNameOrCityNameFreeAtDates(search,(DateTime)startDate, (DateTime) endDate).Count()
+                    TotalItems = _repository.GetHotelsFilteredBySearchDatesAdultsKidsInRoom(search, startDate, endDate, adultsInRoom, kidsInRoom).Count()
                 },
                 ChoosenArrival = startDate,
-                ChoosenDeparture = endDate
-                
+                ChoosenDeparture = endDate,
+                KidsCapacity = kidsInRoom,
+                AdultsCapacity = adultsInRoom
             };
-            return View(hotelViewModel);
+            return View(hotelListViewModel);
         }
         public PartialViewResult LatestHotels() {
             return PartialView(_repository.LatestHotels());

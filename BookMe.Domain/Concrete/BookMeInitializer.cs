@@ -35,26 +35,26 @@ namespace BookMe.Domain.Concrete {
             context.SaveChanges();
 
             var roomList = new List<Room>(){
-                new Room() {Name = "Pokój 3-osobowy", RoomType = RoomType.Pokój, Capacity = 3, Price = 45.5M, HotelID = 1, AddDate = DateTime.Parse("16.07.2016")},
-                new Room() {Name = "Pokój 2-osobowy", RoomType = RoomType.Pokój, Capacity = 2, Price = 30.0M, HotelID = 1, AddDate = DateTime.Parse("17.07.2016")},
-                new Room() {Name = "Pokój 2-osobowy", RoomType = RoomType.Apartament, Capacity = 2, Price = 300.0M, HotelID = 1, AddDate = DateTime.Parse("18.07.2016")},
-                new Room() {Name = "Pokój 3-osobowy", RoomType = RoomType.Pokój, Capacity = 3, Price = 43.0M, HotelID = 2, AddDate = DateTime.Parse("19.07.2016")},
-                new Room() {Name = "Pokój 4-osobowy", RoomType = RoomType.Dom, Capacity = 4, Price = 400.0M, HotelID = 2, AddDate = DateTime.Parse("20.07.2016")},
-                new Room() {Name = "Pokój 2-osobowy", RoomType = RoomType.Pokój, Capacity = 2, Price = 30.0M, HotelID = 2, AddDate = DateTime.Parse("21.07.2016")},
-                new Room() {Name = "Pokój 2-osobowy", RoomType = RoomType.Pokój, Capacity = 2, Price = 30.0M, HotelID = 3, AddDate = DateTime.Parse("22.07.2016")},
-                new Room() {Name = "Pokój 2-osobowy", RoomType = RoomType.Pokój, Capacity = 2, Price = 30.0M, HotelID = 3, AddDate = DateTime.Parse("23.07.2016")},
-                new Room() {Name = "Pokój 3-osobowy", RoomType = RoomType.Pokój, Capacity = 3, Price = 50.0M, HotelID = 4, AddDate = DateTime.Parse("24.07.2016")},
-                new Room() {Name = "Pokój 4-osobowy", RoomType = RoomType.Dom, Capacity = 2, Price = 300.0M, HotelID = 4, AddDate = DateTime.Parse("25.07.2016")},
-                new Room() {Name = "Pokój 2-osobowy", RoomType = RoomType.Pokój, Capacity = 2, Price = 30.0M, HotelID = 4, AddDate = DateTime.Parse("26.07.2016")},
-                new Room() {Name = "Pokój 2-osobowy", RoomType = RoomType.Pokój, Capacity = 2, Price = 30.0M, HotelID = 5, AddDate = DateTime.Parse("27.07.2016")},
-                new Room() {Name = "Pokój 2-osobowy", RoomType = RoomType.Pokój, Capacity = 2, Price = 30.0M, HotelID = 5, AddDate = DateTime.Parse("28.07.2016")},
-                new Room() {Name = "Pokój 2-osobowy", RoomType = RoomType.Pokój, Capacity = 2, Price = 30.0M, HotelID = 5, AddDate = DateTime.Parse("29.07.2016")},
-                new Room() {Name = "Pokój 2-osobowy", RoomType = RoomType.Pokój, Capacity = 2, Price = 30.0M, HotelID = 6, AddDate = DateTime.Parse("30.07.2016")},
-                new Room() {Name = "Pokój 2-osobowy", RoomType = RoomType.Pokój, Capacity = 2, Price = 30.0M, HotelID = 6, AddDate = DateTime.Parse("01.08.2016")},
-                new Room() {Name = "Pokój 2-osobowy", RoomType = RoomType.Pokój, Capacity = 2, Price = 30.0M, HotelID = 6, AddDate = DateTime.Parse("02.08.2016")},
-                new Room() {Name = "Pokój 2-osobowy", RoomType = RoomType.Pokój, Capacity = 2, Price = 30.0M, HotelID = 7, AddDate = DateTime.Parse("03.08.2016")},
-                new Room() {Name = "Pokój 2-osobowy", RoomType = RoomType.Pokój, Capacity = 2, Price = 30.0M, HotelID = 7, AddDate = DateTime.Parse("04.08.2016")},
-                new Room() {Name = "Pokój 2-osobowy", RoomType = RoomType.Pokój, Capacity = 2, Price = 30.0M, HotelID = 7, AddDate = DateTime.Parse("05.08.2016")}
+                new Room() {Name = "Pokój 3-osobowy", RoomType = RoomType.Pokój, Capacity = 3, KidsCapacity = 1, Price = 45.5M, HotelID = 1, AddDate = DateTime.Parse("16.07.2016")},
+                new Room() {Name = "Pokój 2-osobowy", RoomType = RoomType.Pokój, Capacity = 2, KidsCapacity = 1, Price = 30.0M, HotelID = 1, AddDate = DateTime.Parse("17.07.2016")},
+                new Room() {Name = "Pokój 2-osobowy", RoomType = RoomType.Apartament, Capacity = 2, KidsCapacity = 1, Price = 300.0M, HotelID = 1, AddDate = DateTime.Parse("18.07.2016")},
+                new Room() {Name = "Pokój 3-osobowy", RoomType = RoomType.Pokój, Capacity = 3, KidsCapacity = 2, Price = 43.0M, HotelID = 2, AddDate = DateTime.Parse("19.07.2016")},
+                new Room() {Name = "Pokój 4-osobowy", RoomType = RoomType.Dom, Capacity = 4, KidsCapacity = 3, Price = 400.0M, HotelID = 2, AddDate = DateTime.Parse("20.07.2016")},
+                new Room() {Name = "Pokój 2-osobowy", RoomType = RoomType.Pokój, Capacity = 2, KidsCapacity = 1, Price = 30.0M, HotelID = 2, AddDate = DateTime.Parse("21.07.2016")},
+                new Room() {Name = "Pokój 2-osobowy", RoomType = RoomType.Pokój, Capacity = 2, KidsCapacity = 1, Price = 30.0M, HotelID = 3, AddDate = DateTime.Parse("22.07.2016")},
+                new Room() {Name = "Pokój 2-osobowy", RoomType = RoomType.Pokój, Capacity = 2, KidsCapacity = 2, Price = 30.0M, HotelID = 3, AddDate = DateTime.Parse("23.07.2016")},
+                new Room() {Name = "Pokój 3-osobowy", RoomType = RoomType.Pokój, Capacity = 3, KidsCapacity = 3, Price = 50.0M, HotelID = 4, AddDate = DateTime.Parse("24.07.2016")},
+                new Room() {Name = "Pokój 4-osobowy", RoomType = RoomType.Dom, Capacity = 2, KidsCapacity = 1, Price = 300.0M, HotelID = 4, AddDate = DateTime.Parse("25.07.2016")},
+                new Room() {Name = "Pokój 2-osobowy", RoomType = RoomType.Pokój, Capacity = 2, KidsCapacity = 2, Price = 30.0M, HotelID = 4, AddDate = DateTime.Parse("26.07.2016")},
+                new Room() {Name = "Pokój 2-osobowy", RoomType = RoomType.Pokój, Capacity = 2, KidsCapacity = 1, Price = 30.0M, HotelID = 5, AddDate = DateTime.Parse("27.07.2016")},
+                new Room() {Name = "Pokój 2-osobowy", RoomType = RoomType.Pokój, Capacity = 2, KidsCapacity = 1, Price = 30.0M, HotelID = 5, AddDate = DateTime.Parse("28.07.2016")},
+                new Room() {Name = "Pokój 2-osobowy", RoomType = RoomType.Pokój, Capacity = 2, KidsCapacity = 1, Price = 30.0M, HotelID = 5, AddDate = DateTime.Parse("29.07.2016")},
+                new Room() {Name = "Pokój 2-osobowy", RoomType = RoomType.Pokój, Capacity = 2, KidsCapacity = 1, Price = 30.0M, HotelID = 6, AddDate = DateTime.Parse("30.07.2016")},
+                new Room() {Name = "Pokój 2-osobowy", RoomType = RoomType.Pokój, Capacity = 2, KidsCapacity = 1, Price = 30.0M, HotelID = 6, AddDate = DateTime.Parse("01.08.2016")},
+                new Room() {Name = "Pokój 2-osobowy", RoomType = RoomType.Pokój, Capacity = 2, KidsCapacity = 1, Price = 30.0M, HotelID = 6, AddDate = DateTime.Parse("02.08.2016")},
+                new Room() {Name = "Pokój 2-osobowy", RoomType = RoomType.Pokój, Capacity = 2, KidsCapacity = 1, Price = 30.0M, HotelID = 7, AddDate = DateTime.Parse("03.08.2016")},
+                new Room() {Name = "Pokój 2-osobowy", RoomType = RoomType.Pokój, Capacity = 2, KidsCapacity = 1, Price = 30.0M, HotelID = 7, AddDate = DateTime.Parse("04.08.2016")},
+                new Room() {Name = "Pokój 2-osobowy", RoomType = RoomType.Pokój, Capacity = 2, KidsCapacity = 1, Price = 30.0M, HotelID = 7, AddDate = DateTime.Parse("05.08.2016")}
             };
             roomList.ForEach(r => context.Rooms.Add(r));
             context.SaveChanges();

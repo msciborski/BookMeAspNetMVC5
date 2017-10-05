@@ -13,6 +13,7 @@ namespace BookMe.Domain.Entities {
         public string Name { get; set; }
         public decimal Price { get; set; }
         public int Capacity { get; set; }
+        public int KidsCapacity { get; set; }
         public RoomType? RoomType { get; set; }
         public DateTime AddDate { get; set; }
 

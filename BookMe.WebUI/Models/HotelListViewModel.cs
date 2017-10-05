@@ -11,6 +11,8 @@ namespace BookMe.WebUI.Models {
         public String SearchParameter { get; set; }
         public DateTime? ChoosenArrival { get; set; }
         public DateTime? ChoosenDeparture { get; set; }
+        public int KidsCapacity { get; set; }
+        public int? AdultsCapacity { get; set; }
 
     }
 }
