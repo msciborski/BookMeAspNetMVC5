@@ -1,9 +1,30 @@
 ﻿@using BookMe.WebUI.HtmlHelpers
+@using Castle.Core.Internal
 @model BookMe.WebUI.Models.HotelListViewModel
 
 @{
     ViewBag.Title = "Hotels";
 }
+<div id="row">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-8">
+        
+    </div>
+    <div class="col-sm-2"></div>
+</div>
+<h2>Wynik wyszukiwania dla:
+    @if (!Model.SearchParameter.IsNullOrEmpty()){
+        String.Format("{0}, ", Model.SearchParameter);
+    }
+    @if (Model.ChoosenArrival != null && Model.ChoosenDeparture != null){
+        @($"przyjazd: {Model.ChoosenArrival.ToString()}, odjazd {Model.ChoosenDeparture.ToString()}, ");
+    }
+    @if (Model.AdultsCapacity != null){
+        @($"dorośli: {Model.AdultsCapacity}, ");
+    }
+
+    @($"dzieci: {Model.KidsCapacity}")
+</h2>
 @foreach (var hotel in Model.Hotels){
     <h3>@Html.ActionLink(@hotel.Name,"Hotel","Hotel", new {id = @hotel.HotelID}, null)</h3>
 }

@@ -1,4 +1,5 @@
-﻿
+﻿@model BookMe.WebUI.Models.IndexViewModel
+
 @{
     ViewBag.Title = "Index";
 }
@@ -43,11 +44,11 @@
                     <div class="form-group row">
                         <label for="adultsInRoom" class="col-sm-2 control-label">Dorośli:</label>
                         <div class="col-sm-2">
-                            @Html.TextBox("adultsInRoom", "1", null, new { @class = "form-control", type="number", min = "1", max = "5"})
+                            @Html.TextBox("adultsInRoom", "2", null, new { @class = "form-control", type="number", min = @Model.MinAdultCapacity.ToString(), max =@Model.MaxAdultCapacity.ToString()})
                         </div>
                         <label for="kidsInRoom" class="col-sm-2 control-label">Dzieci:</label>
                         <div class="col-sm-2">
-                            @Html.TextBox("kidsInRoom", "0", null, new { @class = "form-control", type = "number", min = "0", max = "5"})
+                            @Html.TextBox("kidsInRoom", "0", null, new { @class = "form-control", type = "number", min = @Model.MinKidCapacity.ToString(), max = @Model.MaxKidCapacity.ToString()})
                         </div>
                     </div>
                 </div>

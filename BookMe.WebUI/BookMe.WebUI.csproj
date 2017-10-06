@@ -307,6 +307,7 @@
     <Compile Include="Infrastructure\NinjectDepdencyResolver.cs" />
     <Compile Include="Models\CityViewModel.cs" />
     <Compile Include="Models\HotelListViewModel.cs" />
+    <Compile Include="Models\IndexViewModel.cs" />
     <Compile Include="Models\LatestHotelsViewModel.cs" />
     <Compile Include="Models\PagingInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
