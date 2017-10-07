@@ -7,6 +7,17 @@ using System.Web.Optimization;
 namespace BookMe.WebUI.App_Start {
     public class BundleConfig {
         public static void RegisterBundles(BundleCollection bundles){
+            bundles.Add(new ScriptBundle("~/js").Include(
+                "~/Scripts/jquery-ui-{version}.js",
+                "~/Scripts/jquery-{version}.js",
+                "~/Scripts/moment.js",
+                "~/Scripts/bootstrap.js",
+                "~/Scripts/bootstrap-datepicker.js"
+            ));
+            bundles.Add(new StyleBundle("~/css").Include(
+                "~/Content/bootstrap.css",
+                "~/Content/bootstrap-datepicker3.css"
+            ));
             bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
                 "~/Scripts/jquery-ui-{version}.js"));
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(

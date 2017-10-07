@@ -15,14 +15,29 @@ namespace BookMe.WebUI.Controllers {
         }
         
         // GET: Home
-        public ActionResult Index() {
-            IndexViewModel viewModel = new IndexViewModel(){
-                MaxKidCapacity = _repository.BigestKidCapacity(),
-                MaxAdultCapacity = _repository.BigestAdultCapacity(),
-                MinAdultCapacity = _repository.LeastAdultCapacity(),
-                MinKidCapacity = _repository.LeastKidCapacity()
+        public ActionResult Index(){
+            return View();
+        }
+
+        public PartialViewResult Search(){
+            string search = Request.QueryString["search"] ?? "";
+            string startDate = Request.QueryString["startDate"] ?? "";
+            string endDate = Request.QueryString["endDate"] ?? "";
+            string adults = Request.QueryString["adultsInRoom"] ?? "2";
+            string kids = Request.QueryString["kidsInRoom"] ?? "0";
+
+            SearchViewModel viewModel = new SearchViewModel() {
+                MaxKidCapacity = _repository.BigestKidCapacity().ToString(),
+                MaxAdultCapacity = _repository.BigestAdultCapacity().ToString(),
+                MinAdultCapacity = _repository.LeastAdultCapacity().ToString(),
+                MinKidCapacity = _repository.LeastKidCapacity().ToString(),
+                Search = search,
+                ArrivalDate = startDate,
+                DepartureDate = endDate,
+                Adults = adults,
+                Kids = kids
             };
-            return View(viewModel);
+            return PartialView(viewModel);
         }
     }
 }

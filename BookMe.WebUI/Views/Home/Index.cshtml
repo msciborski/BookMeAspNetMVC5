@@ -1,79 +1,9 @@
-﻿@model BookMe.WebUI.Models.IndexViewModel
-
-@{
+﻿@{
     ViewBag.Title = "Index";
 }
-<div class="row">
-    <div class="col-md-2"></div>
-    <div class="col-md-8">
-        @using (@Html.BeginForm("List", "Hotel", FormMethod.Get, new { @class = "form-horizontal" })) {
+@Html.Action("Search","Home")
 
-            <div class="form-group">
-                <label for="search" class="col-sm-4 control-label">Cel podróży:</label>
-                <div class="col-sm-8">
-                    @Html.TextBox("search", null, new { @class = "form-control" })
-                </div>
-            </div>
 
-            <div class="form-group">
-                <label for="startDate" class="col-sm-4 control-label">Data przyjazdu:</label>
-                <div class="col-sm-8">
-                    <div class="input-group date" id="datetimepicker">
-                        @Html.TextBox("startDate", null, new { @class = "form-control" })
-                        <span class="input-group-addon">
-                            <span class="glyphicon glyphicon-calendar"></span>
-                        </span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label for="endDate" class="col-sm-4 control-label">Data wyjazdu:</label>
-                <div class="col-sm-8">
-                    <div class="input-group date">
-                        @Html.TextBox("endDate", null, new { @class = "form-control" })
-                        <span class="input-group-addon">
-                            <span class="glyphicon glyphicon-calendar"></span>
-                        </span>
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <span class="col-sm-4"></span>
-                <div class="col-sm-8">
-                    <div class="form-group row">
-                        <label for="adultsInRoom" class="col-sm-2 control-label">Dorośli:</label>
-                        <div class="col-sm-2">
-                            @Html.TextBox("adultsInRoom", "2", null, new { @class = "form-control", type="number", min = @Model.MinAdultCapacity.ToString(), max =@Model.MaxAdultCapacity.ToString()})
-                        </div>
-                        <label for="kidsInRoom" class="col-sm-2 control-label">Dzieci:</label>
-                        <div class="col-sm-2">
-                            @Html.TextBox("kidsInRoom", "0", null, new { @class = "form-control", type = "number", min = @Model.MinKidCapacity.ToString(), max = @Model.MaxKidCapacity.ToString()})
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <input type="submit" value="Search" class="btn btn-default center-block"/>
-        }
-    </div>
-    <div class="col-md-2"></div>
-</div>
-
-<script type="text/javascript">
-    $(function () {
-        $('#datetimepicker').datetimepicker();
-        $('#datetimepicker1').datetimepicker();
-    });
-    $(document)
-        .ready(function() {
-            var adultsSpiner = $('#adultsInRoomSpinner').spinner();
-            var kidsSpiner = $('#kidsInRoomSpinner').spinner();
-        });
-    $(function() {
-        $('#adultsInRoomSpinner').width();
-    })
-
-</script>
 <h2>Najnowsze hotele:</h2>
 @Html.Action("LatestHotels", "Hotel")
 <div class="row">

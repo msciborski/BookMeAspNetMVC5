@@ -30,6 +30,7 @@ namespace BookMe.WebUI.Controllers {
                     ItemsPerPage = PageSize,
                     TotalItems = _repository.GetHotelsFilteredBySearchDatesAdultsKidsInRoom(search, startDate, endDate, adultsInRoom, kidsInRoom).Count()
                 },
+                SearchParameter = search,
                 ChoosenArrival = startDate,
                 ChoosenDeparture = endDate,
                 KidsCapacity = kidsInRoom,

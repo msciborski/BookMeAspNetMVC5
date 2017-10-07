@@ -5,19 +5,13 @@
 @{
     ViewBag.Title = "Hotels";
 }
-<div id="row">
-    <div class="col-sm-2"></div>
-    <div class="col-sm-8">
-        
-    </div>
-    <div class="col-sm-2"></div>
-</div>
+@Html.Action("Search", "Home")
 <h2>Wynik wyszukiwania dla:
     @if (!Model.SearchParameter.IsNullOrEmpty()){
-        String.Format("{0}, ", Model.SearchParameter);
+        @($"{Model.SearchParameter},");
     }
     @if (Model.ChoosenArrival != null && Model.ChoosenDeparture != null){
-        @($"przyjazd: {Model.ChoosenArrival.ToString()}, odjazd {Model.ChoosenDeparture.ToString()}, ");
+        @($"przyjazd: {Model.ChoosenArrival.Value.ToShortDateString()}, odjazd {Model.ChoosenDeparture.Value.ToShortDateString()}, ");
     }
     @if (Model.AdultsCapacity != null){
         @($"dorośli: {Model.AdultsCapacity}, ");

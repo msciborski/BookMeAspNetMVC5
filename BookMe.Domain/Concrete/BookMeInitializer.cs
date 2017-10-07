@@ -74,15 +74,21 @@ namespace BookMe.Domain.Concrete {
             reservationsList.ForEach(r => context.Reservations.Add(r));
             context.SaveChanges();
 
-            String fileHotelName = @"C:\Users\mscib\Documents\hotel.jpg";
-            String fileRoomName = @"C:\Users\mscib\Documents\room.jpg";
+            string fileCityName = @"C:\Users\mscib\Documents\poznan.jpg";
+            string fileHotelName = @"C:\Users\mscib\Documents\hotel.jpg";
+            string fileRoomName = @"C:\Users\mscib\Documents\room.jpg";
             byte[] bytePhoto = GetImageByteArray(fileHotelName);
             string mimeType = GetMimeType(fileHotelName);
             byte[] byteRoomPhoto = GetImageByteArray(fileRoomName);
-            String mimeRoomType = GetMimeType(fileRoomName);
+            string mimeRoomType = GetMimeType(fileRoomName);
+            byte[] byteCity = GetImageByteArray(fileCityName);
+            string mimeCityType = GetMimeType(fileCityName);
             List<Photo> photos = new List<Photo>();
             CreatePhotoList(7, bytePhoto, mimeType, "hotel", photos);
             CreatePhotoList(20, byteRoomPhoto, mimeRoomType, "room", photos);
+            photos.Add(new Photo() { CityID = 1, ImageData = byteCity, ImageMimeType = mimeCityType });
+            photos.Add(new Photo() { CityID = 2, ImageData = byteCity, ImageMimeType = mimeCityType });
+            photos.Add(new Photo() { CityID = 3, ImageData = byteCity, ImageMimeType = mimeCityType });
             foreach (var photo in photos){
                 context.Photos.Add(photo);
             }
@@ -98,7 +104,6 @@ namespace BookMe.Domain.Concrete {
                     int hotelID = 1;
                     for (int i = startIndex+1; i <= (count + startIndex); i++){
                         photos.Add(new Photo(){
-                            PhotoID = i,
                             HotelID = hotelID,
                             ImageData = bytePhoto,
                             ImageMimeType = mimeType
@@ -110,7 +115,6 @@ namespace BookMe.Domain.Concrete {
                     int roomID = 1;
                     for (int i = startIndex; i < (count + startIndex); i++){
                         photos.Add(new Photo(){
-                            PhotoID = i,
                             RoomID = roomID,
                             ImageData = bytePhoto,
                             ImageMimeType = mimeType
