@@ -4,7 +4,7 @@
     <div class="thumbnail">
         @if (Model.Photos.Count != 0){
             <img src="@Url.Action("Index", "Photo", new{id = Model.Photos.FirstOrDefault().PhotoID})"
-                 alt="@Model.Name"/>
+                 alt="@Model.Name" class="img-responsive"/>
         }
         else{
             <img src="#" alt="@Model.Name"/>

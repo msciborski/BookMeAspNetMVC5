@@ -1,59 +1,62 @@
-﻿@model BookMe.WebUI.Models.SearchViewModel
+﻿@using System.Web.Optimization
+@model BookMe.WebUI.Models.SearchViewModel
+
+
 <div class="row">
     <div class="col-md-2"></div>
     <div class="col-md-8">
-        @using (@Html.BeginForm("List", "Hotel", FormMethod.Get, new { @class = "form-horizontal" })) {
-
-            <div class="form-group">
-                <label for="search" class="col-sm-4 control-label">Cel podróży:</label>
-                <div class="col-sm-8">
-                    @Html.TextBox("search", @Model.Search, null, new { @class = "form-control" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label for="startDate" class="col-sm-4 control-label">Data przyjazdu:</label>
-                <div class="col-sm-8">
-                    <div class="input-group date" id="datetimepicker">
-                        @Html.TextBox("startDate", null, new { @class = "form-control" })
-                        <span class="input-group-addon">
-                            <span class="glyphicon glyphicon-calendar"></span>
-                        </span>
+            @using (@Html.BeginForm("List", "Hotel", FormMethod.Get, new { @class = "form-horizontal"})) {
+                <div class="form-group col-sm-12">
+                    <label for="search" class="col-sm-4 control-label">Cel podróży:</label>
+                    <div class="col-sm-8">
+                        @Html.TextBox("search", @Model.Search, null, new { @class = "form-control" })
                     </div>
                 </div>
-            </div>
 
-            <div class="form-group">
-                <label for="endDate" class="col-sm-4 control-label">Data wyjazdu:</label>
-                <div class="col-sm-8">
-                    <div class="input-group date" id="datetimepicker1">
-                        @Html.TextBox("endDate", null, new { @class = "form-control" })
-                        <span class="input-group-addon">
-                            <span class="glyphicon glyphicon-calendar"></span>
-                        </span>
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <span class="col-sm-4"></span>
-                <div class="col-sm-8">
-                    <div class="form-group row">
-                        <label for="adultsInRoom" class="col-sm-2 control-label">Dorośli:</label>
-                        <div class="col-sm-2">
-                            @Html.TextBox("adultsInRoom", @Model.Adults, null, new { @class = "form-control", type = "number", min = @Model.MinAdultCapacity, max = @Model.MaxAdultCapacity })
-                        </div>
-                        <label for="kidsInRoom" class="col-sm-2 control-label">Dzieci:</label>
-                        <div class="col-sm-2">
-                            @Html.TextBox("kidsInRoom", @Model.Kids, null, new { @class = "form-control", type = "number", min = 0, max = @Model.MaxKidCapacity })
+                <div class="form-group col-sm-12">
+                    <label for="startDate" class="col-sm-4 control-label">Data przyjazdu:</label>
+                    <div class="col-sm-8">
+                        <div class="input-group date" id="datetimepicker">
+                            @Html.TextBox("startDate", null, new { @class = "form-control" })
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
                         </div>
                     </div>
                 </div>
-            </div>
-            <input type="submit" value="Search" class="btn btn-default center-block" />
-        }
+
+                <div class="form-group col-sm-12">
+                    <label for="endDate" class="col-sm-4 control-label">Data wyjazdu:</label>
+                    <div class="col-sm-8">
+                        <div class="input-group date" id="datetimepicker1">
+                            @Html.TextBox("endDate", null, new { @class = "form-control" })
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-sm-12">
+                    <span class="col-sm-4" id="emptyLabel"></span>
+                    <div class="col-sm-8" id="capacitySection">
+                        <div class="form-group row" id="groupingDiv">
+                            <label id="adultLabel" for="adultsInRoom" class="col-sm-2 control-label">Dorośli:</label>
+                            <div class="col-sm-2" id="adultNumber">
+                                @Html.TextBox("adultsInRoom", @Model.Adults, null, new { @class = "form-control", type = "number", min = @Model.MinAdultCapacity, max = @Model.MaxAdultCapacity })
+                            </div>
+                            <label id="kidsLabel" for="kidsInRoom" class="col-sm-2 control-label">Dzieci:</label>
+                            <div class="col-sm-2" id="kidsNumber">
+                                @Html.TextBox("kidsInRoom", @Model.Kids, null, new { @class = "form-control", type = "number", min = 0, max = @Model.MaxKidCapacity })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <input type="submit" value="Search" class="btn btn-default center-block" />
+            }
     </div>
     <div class="col-md-2"></div>
 </div>
+@Scripts.Render("~/js")
 <script type="text/javascript">
     $(function () {
         $('#datetimepicker').datepicker();

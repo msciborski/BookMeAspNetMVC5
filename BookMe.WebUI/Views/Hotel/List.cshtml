@@ -6,24 +6,50 @@
     ViewBag.Title = "Hotels";
 }
 @Html.Action("Search", "Home")
-<h2>Wynik wyszukiwania dla:
-    @if (!Model.SearchParameter.IsNullOrEmpty()){
+<h2>
+    Wynik wyszukiwania dla:
+    @if (!Model.SearchParameter.IsNullOrEmpty()) {
         @($"{Model.SearchParameter},");
     }
-    @if (Model.ChoosenArrival != null && Model.ChoosenDeparture != null){
+    @if (Model.ChoosenArrival != null && Model.ChoosenDeparture != null) {
         @($"przyjazd: {Model.ChoosenArrival.Value.ToShortDateString()}, odjazd {Model.ChoosenDeparture.Value.ToShortDateString()}, ");
     }
-    @if (Model.AdultsCapacity != null){
+    @if (Model.AdultsCapacity != null) {
         @($"dorośli: {Model.AdultsCapacity}, ");
     }
 
     @($"dzieci: {Model.KidsCapacity}")
 </h2>
-@foreach (var hotel in Model.Hotels){
-    <h3>@Html.ActionLink(@hotel.Name,"Hotel","Hotel", new {id = @hotel.HotelID}, null)</h3>
+@foreach (var hotel in Model.Hotels) {
+    @*<h3>@Html.ActionLink(@hotel.Name,"Hotel","Hotel", new {id = @hotel.HotelID}, null)</h3>*@
+    <div class="row">
+        <div class="col-sm-12 col-md-12">
+            <div class="thumbnail">
+                <div class="row">
+                    <div class="col-sm-5 col-md-5">
+                        <img src="@Url.Action("Index", "Photo", new{id = hotel.Photos.FirstOrDefault().PhotoID})" alt="hotel" class="img-thumbnail" />
+                    </div>
+                    <div class="col-sm-7 col-md-7">
+                        <div class="caption">
+                            <h3>@Html.ActionLink(@hotel.Name,"Hotel","Hotel", new {id = @hotel.HotelID})</h3>
+                            <p>@hotel.City.Name, @hotel.Address</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
 }
 <div>
-    @Html.PageLinks(Model.PagingInfo,x => Url.Action("List","Hotel",
-    new {page = x, search = Model.SearchParameter, startDate = Model.ChoosenArrival,
-                endDate = Model.ChoosenDeparture, kidsInRoom = Model.KidsCapacity, adultsInRoom = Model.AdultsCapacity},null))
+    @Html.PageLinks(Model.PagingInfo, x => Url.Action("List", "Hotel",
+     new {
+         page = x,
+         search = Model.SearchParameter,
+         startDate = Model.ChoosenArrival,
+         endDate = Model.ChoosenDeparture,
+         kidsInRoom = Model.KidsCapacity,
+         adultsInRoom = Model.AdultsCapacity
+     }, null))
 </div>

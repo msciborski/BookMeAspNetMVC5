@@ -1,18 +1,57 @@
-﻿@model BookMe.Domain.Entities.Hotel
+﻿@using System.Web.Optimization
+@model BookMe.Domain.Entities.Hotel
 
 @{
     ViewBag.Title = @Model.Name;
 }
 <div class="row">
     <div class="col-md-4">
-        @if (Model.Photos.Count != 0) {
-            <img src="@Url.Action("Index","Photo", new {id = Model.Photos.First().PhotoID})" alt="@Model.Name@Model.City.Name" />
-        }
+        @Html.Action("Search","Home")
     </div>
     <div class="col-md-8">
-        <h2>@Model.Name</h2>
-        <strong>@Model.City.Name, @Model.City.ZipCode</strong>
+        <div class="well">
+            <div class="row">
+                <div class="col-md-4">
+                    @if (Model.Photos.Count != 0) {
+                        <img src="@Url.Action("Index", "Photo", new{id = Model.Photos.First().PhotoID})" alt="@Model.Name@Model.City.Name" class="img-responsive" />
+                    }
+                </div>
+                <div class="col-md-8">
+                    <h2>@Model.Name</h2>
+                    <strong>@Model.City.Name, @Model.City.ZipCode</strong>
+                </div>
+            </div>
+        </div>
+        @Html.Action("RoomsForSelectedHotel", "Room", new { id = @Model.HotelID })
     </div>
 </div>
-@Html.Action("RoomsForSelectedHotel","Room", new { id = @Model.HotelID})
+<script type="text/javascript">
+    $(document).ready(function() {
+        var loc = window.location.href;
+        var patt = new RegExp("/Hotel/Hotel/")
+        if (patt.test(loc)) {
+            $('#emptyLabel').remove();
+            $('#capacitySection').switchClass("col-sm-8", "");
+            $('#groupingDiv').switchClass("form-group row", "form-group");
+            $('#adultLabel').switchClass("col-sm-2", "col-sm-4");
+            $('#adultNumber').switchClass("col-sm-2", "col-sm-8");
+            $('#kidsLabel').switchClass("col-sm-2", "col-sm-4");
+            $('#kidsNumber').switchClass("col-sm-2", "col-sm-8");
+        }
+    })
+</script>
+@*<div class="well">
+    <div class="row">
+        <div class="col-md-4">
+            @if (Model.Photos.Count != 0) {
+                <img src="@Url.Action("Index", "Photo", new{id = Model.Photos.First().PhotoID})" alt="@Model.Name@Model.City.Name" class="img-responsive" />
+            }
+        </div>
+        <div class="col-md-8">
+            <h2>@Model.Name</h2>
+            <strong>@Model.City.Name, @Model.City.ZipCode</strong>
+        </div>
+    </div>
+</div>
+@Html.Action("RoomsForSelectedHotel", "Room", new { id = @Model.HotelID })*@
 

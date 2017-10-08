@@ -8,8 +8,8 @@ namespace BookMe.WebUI.App_Start {
     public class BundleConfig {
         public static void RegisterBundles(BundleCollection bundles){
             bundles.Add(new ScriptBundle("~/js").Include(
-                "~/Scripts/jquery-ui-{version}.js",
                 "~/Scripts/jquery-{version}.js",
+                "~/Scripts/jquery-ui-{version}.js",
                 "~/Scripts/moment.js",
                 "~/Scripts/bootstrap.js",
                 "~/Scripts/bootstrap-datepicker.js"

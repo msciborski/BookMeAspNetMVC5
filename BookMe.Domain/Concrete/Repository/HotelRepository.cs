@@ -49,7 +49,7 @@ namespace BookMe.Domain.Concrete.Repository {
         public IEnumerable<Hotel> GetHotelsFilteredBySearchDatesAdultsKidsInRoom(string search, DateTime? startDate, DateTime? endDate,
             int? adults, int kids){
             DateTime endOfTheYear = new DateTime(DateTime.Today.Year, 12, 31);
-            var query = DbSet.Where(h => search == null || h.Name.Contains(search) || h.City.Name.Contains(search));
+            var query = DbSet.Include(h => h.City).Include(h => h.Photos).Where(h => search == null || h.Name.Contains(search) || h.City.Name.Contains(search));
             if (startDate.HasValue && endDate.HasValue){
                 query = query.Where(h => h.Rooms
                     .Any(r => r.Reservations
