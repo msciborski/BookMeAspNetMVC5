@@ -16,7 +16,7 @@ namespace BookMe.Domain.Entities {
         public int KidsCapacity { get; set; }
         public RoomType? RoomType { get; set; }
         public DateTime AddDate { get; set; }
-
+        
         public int HotelID { get; set; }
         public virtual Hotel Hotel { get; set; }
         public virtual ICollection<Photo> Photos { get; set; }

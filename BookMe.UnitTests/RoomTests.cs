@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Web.Mvc;
 using BookMe.Domain.Concrete;
 using BookMe.Domain.Concrete.Repository;
 using BookMe.Domain.Concrete.Repository.Interfaces;
@@ -13,6 +14,35 @@ using Moq;
 namespace BookMe.UnitTests {
     [TestClass]
     public class RoomTests{
+        [TestMethod]
+        public void CanReturnRoomJsonViewModelForSelectedRoom(){
+            //Arrange
+            var photos = new Photo[]{
+                new Photo(){PhotoID = 1},
+                new Photo(){PhotoID = 2},
+                new Photo(){PhotoID = 3}
+            };
+            var rooms = new Room[]{
+                new Room(){RoomID = 1, Name = "R1", Photos = photos},
+                new Room(){RoomID = 2, Name = "R2", Photos = photos},
+                new Room(){RoomID = 3, Name = "R3", Photos = photos}
+            };
+
+            var mockDbSet = GetMockDbSet(rooms.AsQueryable());
+            mockDbSet.Setup(m => m.Include("Photos")).Returns(mockDbSet.Object);
+            Mock<BookMeContext> mockContext = new Mock<BookMeContext>();
+            mockContext.Setup(m => m.Set<Room>()).Returns(mockDbSet.Object);
+            mockContext.Setup(m => m.Rooms).Returns(mockDbSet.Object);
+            IRoomRepository repository = new RoomRepository(mockContext.Object);
+            RoomController target = new RoomController(repository);
+
+            //Act
+            var result = target.SelectedRoom(1) as ContentResult;
+
+            //Assert
+
+            Assert.IsNotNull(result);
+        }
         [TestMethod]
         public void CanReturnRoomsForSelectedHotel(){
             //Arrange

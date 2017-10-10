@@ -19,9 +19,12 @@ namespace BookMe.UnitTests {
         public void CanReturnHotelsWithAdultsCapacity(){
             //Arrange
             Hotel[] data = CreateHotelsWithRoomsReservations().ToArray();
+            var mockDbSet = GetMockDbSet(data.AsQueryable());
+            mockDbSet.Setup(m => m.Include("City")).Returns(mockDbSet.Object);
+            mockDbSet.Setup(m => m.Include("Photos")).Returns(mockDbSet.Object);
             Mock<BookMeContext> mockContext = new Mock<BookMeContext>();
-            mockContext.Setup(m => m.Set<Hotel>()).ReturnsDbSet(data);
-            mockContext.Setup(m => m.Hotels).ReturnsDbSet(data);
+            mockContext.Setup(m => m.Set<Hotel>()).Returns(mockDbSet.Object);
+            mockContext.Setup(m => m.Hotels).ReturnsDbSet(mockDbSet.Object);
             IHotelRepository repository = new HotelRepository(mockContext.Object);
             HotelController target = new HotelController(repository);
 
@@ -38,9 +41,12 @@ namespace BookMe.UnitTests {
         public void CanReturnHotelsWithRoomsAvaiableAtDate() {
             //Arrange
             Hotel[] data = CreateHotelsWithRoomsReservations().ToArray();
+            var mockDbSet = GetMockDbSet(data.AsQueryable());
+            mockDbSet.Setup(m => m.Include("City")).Returns(mockDbSet.Object);
+            mockDbSet.Setup(m => m.Include("Photos")).Returns(mockDbSet.Object);
             Mock<BookMeContext> mockContext = new Mock<BookMeContext>();
-            mockContext.Setup(m => m.Set<Hotel>()).ReturnsDbSet(data);
-            mockContext.Setup(m => m.Hotels).ReturnsDbSet(data);
+            mockContext.Setup(m => m.Set<Hotel>()).Returns(mockDbSet.Object);
+            mockContext.Setup(m => m.Hotels).ReturnsDbSet(mockDbSet.Object);
             IHotelRepository repository = new HotelRepository(mockContext.Object);
             HotelController target = new HotelController(repository);
 
@@ -60,9 +66,12 @@ namespace BookMe.UnitTests {
         public void CanReturnListHotelsWithAvaiableDataAndAdultsInRoom(){
             //Arrange 
             Hotel[] data = CreateHotelsWithRoomsReservations().ToArray();
+            var mockDbSet = GetMockDbSet(data.AsQueryable());
+            mockDbSet.Setup(m => m.Include("City")).Returns(mockDbSet.Object);
+            mockDbSet.Setup(m => m.Include("Photos")).Returns(mockDbSet.Object);
             Mock<BookMeContext> mockContext = new Mock<BookMeContext>();
-            mockContext.Setup(m => m.Set<Hotel>()).ReturnsDbSet(data);
-            mockContext.Setup(m => m.Hotels).ReturnsDbSet(data);
+            mockContext.Setup(m => m.Set<Hotel>()).Returns(mockDbSet.Object);
+            mockContext.Setup(m => m.Hotels).ReturnsDbSet(mockDbSet.Object);
             IHotelRepository repository = new HotelRepository(mockContext.Object);
             HotelController target = new HotelController(repository);
 
@@ -80,9 +89,12 @@ namespace BookMe.UnitTests {
         public void CanReturnListHotelsWithAvaiableDataAndKidsInRoom(){
             //Arrange 
             Hotel[] data = CreateHotelsWithRoomsReservations().ToArray();
+            var mockDbSet = GetMockDbSet(data.AsQueryable());
+            mockDbSet.Setup(m => m.Include("City")).Returns(mockDbSet.Object);
+            mockDbSet.Setup(m => m.Include("Photos")).Returns(mockDbSet.Object);
             Mock<BookMeContext> mockContext = new Mock<BookMeContext>();
-            mockContext.Setup(m => m.Set<Hotel>()).ReturnsDbSet(data);
-            mockContext.Setup(m => m.Hotels).ReturnsDbSet(data);
+            mockContext.Setup(m => m.Set<Hotel>()).Returns(mockDbSet.Object);
+            mockContext.Setup(m => m.Hotels).ReturnsDbSet(mockDbSet.Object);
             IHotelRepository repository = new HotelRepository(mockContext.Object);
             HotelController target = new HotelController(repository);
 
@@ -101,9 +113,12 @@ namespace BookMe.UnitTests {
         public void CanReturnListHotelsWithAvaiableDataAndAdultsKidsInRoom(){
             //Arrange 
             Hotel[] data = CreateHotelsWithRoomsReservations().ToArray();
+            var mockDbSet = GetMockDbSet(data.AsQueryable());
+            mockDbSet.Setup(m => m.Include("City")).Returns(mockDbSet.Object);
+            mockDbSet.Setup(m => m.Include("Photos")).Returns(mockDbSet.Object);
             Mock<BookMeContext> mockContext = new Mock<BookMeContext>();
-            mockContext.Setup(m => m.Set<Hotel>()).ReturnsDbSet(data);
-            mockContext.Setup(m => m.Hotels).ReturnsDbSet(data);
+            mockContext.Setup(m => m.Set<Hotel>()).Returns(mockDbSet.Object);
+            mockContext.Setup(m => m.Hotels).ReturnsDbSet(mockDbSet.Object);
             IHotelRepository repository = new HotelRepository(mockContext.Object);
             HotelController target = new HotelController(repository);
 
@@ -122,14 +137,21 @@ namespace BookMe.UnitTests {
                 new City{CityID = 1, Name = "Poznań"},
                 new City(){CityID = 2, Name = "Warszawa"}
             };
-            var data = new Hotel[]{
-                new Hotel(){HotelID = 1, Name = "H1", City = cities[0]},
-                new Hotel(){HotelID = 2, Name = "H2", City = cities[0]},
-                new Hotel(){HotelID = 3, Name = "H3", City = cities[1]},
+            var photos = new Photo[]{
+                new Photo(),
+                new Photo()
             };
+            var data = new Hotel[]{
+                new Hotel(){HotelID = 1, Name = "H1", City = cities[0], Photos = photos},
+                new Hotel(){HotelID = 2, Name = "H2", City = cities[0], Photos = photos},
+                new Hotel(){HotelID = 3, Name = "H3", City = cities[1], Photos = photos},
+            };
+            var mockDbSet = GetMockDbSet(data.AsQueryable());
+            mockDbSet.Setup(m => m.Include("City")).Returns(mockDbSet.Object);
+            mockDbSet.Setup(m => m.Include("Photos")).Returns(mockDbSet.Object);
             Mock<BookMeContext> mockContext = new Mock<BookMeContext>();
-            mockContext.Setup(m => m.Set<Hotel>()).ReturnsDbSet(data);
-            mockContext.Setup(m => m.Hotels).ReturnsDbSet(data);
+            mockContext.Setup(m => m.Set<Hotel>()).Returns(mockDbSet.Object);
+            mockContext.Setup(m => m.Hotels).Returns(mockDbSet.Object);
             IHotelRepository repository = new HotelRepository(mockContext.Object);
             HotelController target = new HotelController(repository);
 
@@ -144,15 +166,22 @@ namespace BookMe.UnitTests {
         [TestMethod]
         public void CanReturnListOfHotelsForHotelName() {
             //Arrange
+            var photos = new Photo[]{
+                new Photo(),
+                new Photo()
+            };
             var city = new City() { CityID = 1, Name = "Poznań" };
             var data = new Hotel[]{
-                new Hotel(){HotelID = 1, Name = "Plaza Hotel", City = city},
-                new Hotel(){HotelID = 2, Name = "Hotel Plaza 2", City = city},
-                new Hotel(){HotelID = 3, Name = "Na pewno Cię nie wybiore Hotel", City = city}
+                new Hotel(){HotelID = 1, Name = "Plaza Hotel", City = city, Photos = photos },
+                new Hotel(){HotelID = 2, Name = "Hotel Plaza 2", City = city, Photos = photos},
+                new Hotel(){HotelID = 3, Name = "Na pewno Cię nie wybiore Hotel", City = city, Photos = photos}
             };
+            var mockDbSet = GetMockDbSet(data.AsQueryable());
+            mockDbSet.Setup(m => m.Include("City")).Returns(mockDbSet.Object);
+            mockDbSet.Setup(m => m.Include("Photos")).Returns(mockDbSet.Object);
             Mock<BookMeContext> mockContext = new Mock<BookMeContext>();
-            mockContext.Setup(m => m.Set<Hotel>()).ReturnsDbSet(data);
-            mockContext.Setup(m => m.Hotels).ReturnsDbSet(data);
+            mockContext.Setup(m => m.Set<Hotel>()).Returns(mockDbSet.Object);
+            mockContext.Setup(m => m.Hotels).Returns(mockDbSet.Object);
             IHotelRepository repository = new HotelRepository(mockContext.Object);
             HotelController target = new HotelController(repository);
 
@@ -182,9 +211,12 @@ namespace BookMe.UnitTests {
                 new Hotel(){HotelID = 5, Name = "H5", City = city, Photos = photos},
                 new Hotel(){HotelID = 6, Name = "H6", City = city, Photos = photos},
             };
+            var dbSetMock = GetMockDbSet(data.AsQueryable());
+            dbSetMock.Setup(m => m.Include("City")).Returns(dbSetMock.Object);
+            dbSetMock.Setup(m => m.Include("Photos")).Returns(dbSetMock.Object);
             Mock<BookMeContext> mockContext = new Mock<BookMeContext>();
-            mockContext.Setup(m => m.Set<Hotel>()).ReturnsDbSet(data);
-            mockContext.Setup(m => m.Hotels).ReturnsDbSet(data);
+            mockContext.Setup(m => m.Set<Hotel>()).Returns(dbSetMock.Object);
+            mockContext.Setup(m => m.Hotels).Returns(dbSetMock.Object);
             IHotelRepository repository = new HotelRepository(mockContext.Object);
             HotelController target = new HotelController(repository);
 
@@ -271,7 +303,15 @@ namespace BookMe.UnitTests {
             Assert.IsNotInstanceOfType(result, typeof(ViewResult));
         }
 
-        private IEnumerable<Hotel> CreateHotelsWithRoomsReservations() {
+        private IEnumerable<Hotel> CreateHotelsWithRoomsReservations(){
+            var cities = new City[]{
+                new City(){CityID = 1, Name = "Poznań"},
+                new City(){CityID = 2, Name = "Warszawa"}
+            };
+            var sevenItems = new byte[] { 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20 };
+            var photos = new Photo[]{
+                new Photo(){PhotoID = 1, ImageData = sevenItems, ImageMimeType = "image/jpeg"}
+            };
             var reservationsData = new List<Reservation[]>(){
                 new Reservation[]{
                     new Reservation() {ReservationID = 1, RoomID = 1, StartDate = DateTime.Parse("21.08.2017"), EndDate = DateTime.Parse("24.08.2017")},
@@ -319,10 +359,10 @@ namespace BookMe.UnitTests {
                 }
             };
             var data = new Hotel[]{
-                new Hotel(){HotelID = 1, Name = "H1", Rooms = roomsData[0]}, //Tego nie zwróci
-                new Hotel(){HotelID = 2, Name = "H2", Rooms = roomsData[1]},
-                new Hotel(){HotelID = 3, Name = "H3", Rooms = roomsData[2]}, //Tego nie zwróci
-                new Hotel(){HotelID = 4, Name = "H4", Rooms = roomsData[3]},
+                new Hotel(){HotelID = 1, Name = "H1", Rooms = roomsData[0], City = cities[0], Photos = photos}, //Tego nie zwróci
+                new Hotel(){HotelID = 2, Name = "H2", Rooms = roomsData[1], City = cities[0], Photos = photos},
+                new Hotel(){HotelID = 3, Name = "H3", Rooms = roomsData[2], City = cities[1], Photos = photos}, //Tego nie zwróci
+                new Hotel(){HotelID = 4, Name = "H4", Rooms = roomsData[3], City = cities[1], Photos = photos}
             };
             return data;
         }

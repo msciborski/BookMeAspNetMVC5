@@ -8,6 +8,7 @@
             <th>Pojemnosc</th>
             <th>Cena za dobe</th>
             <th>Rodzaj pokoju</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -17,6 +18,7 @@
                 <td>@room.Capacity</td>
                 <td>@room.Price</td>
                 <td>@room.RoomType.ToString()</td>
+                <td><button type="button" class="btn btn-default classForSelect" data-toggle="modal" data-target="#testModal" room-id="@room.RoomID">Test</button></td>
             </tr>
         }
     </tbody>

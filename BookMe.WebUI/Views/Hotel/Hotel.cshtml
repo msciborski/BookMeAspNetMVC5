@@ -22,36 +22,143 @@
                 </div>
             </div>
         </div>
+
+        <div class="modal fade" role="dialog" id="testModal">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title">Modal title</h4>
+                    </div>
+                    <div class="modal-body" id="modalBody">
+                        <div class="row">
+                            <div class="col-sm-6 col-md-6" id="picturesColumn">
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-12" id="mainImg"></div>
+                                </div>
+                                <div class="row" id="optionalImg" style="margin-top:15px">
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-md-6" id="dataColumn">
+                                <table class="table">
+                                    <tr>
+                                        <td>Nazwa:</td>
+                                        <td id="roomName" room-id=""></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Ilość dorosłych:</td>
+                                        <td id="adultsCapacity"></td>
+                                    </tr>
+                                    <tr id="kidsCapacityRow">
+                                    </tr>
+                                    <tr>
+                                        <td>Cena za noc:</td>
+                                        <td id="price"></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         @Html.Action("RoomsForSelectedHotel", "Room", new { id = @Model.HotelID })
     </div>
 </div>
+
 <script type="text/javascript">
-    $(document).ready(function() {
-        var loc = window.location.href;
-        var patt = new RegExp("/Hotel/Hotel/")
-        if (patt.test(loc)) {
-            $('#emptyLabel').remove();
-            $('#capacitySection').switchClass("col-sm-8", "");
-            $('#groupingDiv').switchClass("form-group row", "form-group");
-            $('#adultLabel').switchClass("col-sm-2", "col-sm-4");
-            $('#adultNumber').switchClass("col-sm-2", "col-sm-8");
-            $('#kidsLabel').switchClass("col-sm-2", "col-sm-4");
-            $('#kidsNumber').switchClass("col-sm-2", "col-sm-8");
-        }
-    })
-</script>
-@*<div class="well">
-    <div class="row">
-        <div class="col-md-4">
-            @if (Model.Photos.Count != 0) {
-                <img src="@Url.Action("Index", "Photo", new{id = Model.Photos.First().PhotoID})" alt="@Model.Name@Model.City.Name" class="img-responsive" />
+    $(document)
+        .ready(function () {
+            var loc = window.location.href;
+            var patt = new RegExp("/Hotel/Hotel/")
+            if (patt.test(loc)) {
+                $('#emptyLabel').remove();
+                $('#capacitySection').switchClass("col-sm-8", "");
+                $('#groupingDiv').switchClass("form-group row", "form-group");
+                $('#adultLabel').switchClass("col-sm-2", "col-sm-4");
+                $('#adultNumber').switchClass("col-sm-2", "col-sm-8");
+                $('#kidsLabel').switchClass("col-sm-2", "col-sm-4");
+                $('#kidsNumber').switchClass("col-sm-2", "col-sm-8");
             }
-        </div>
-        <div class="col-md-8">
-            <h2>@Model.Name</h2>
-            <strong>@Model.City.Name, @Model.City.ZipCode</strong>
-        </div>
-    </div>
-</div>
-@Html.Action("RoomsForSelectedHotel", "Room", new { id = @Model.HotelID })*@
+        });
+    $('.classForSelect')
+        .click(function(e) {
+            e.preventDefault();
+            var id = $(this).attr("room-id");
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("SelectedRoom","Room")',
+                data: { id: id },
+                dataType: 'json',
+                success: function(data) {
+                    $('#roomName').append("<b>" + data.Name + "</b>");
+                    $('#roomName').attr("room-id", data.RoomID);
+                    $('#adultsCapacity').append("<b>" + data.AdultsCapacity + "</b>");
+                    if (data.KidsCapacity != '0') {
+
+                        $('#kidsCapacityRow')
+                            .html("<td id=\"kidsCapacity\">Ilość dzieci:</td>\n<td><b>" +
+                                data.KidsCapacity +
+                                "</b></td>");
+                    }
+                    $('#price').append("<b>" + data.Price + "</b>");
+                    var photosCount = Object.keys(data.PhotoIds).length;
+                    if (photosCount === 1 || photosCount === 2) {
+                        console.log("Jesteś w ifie: photosCount == 1 lub photosCount == 2");
+                        var url = '@Url.Action("Index","Photo")?id=' + data.PhotoIds[0].PhotoID;
+                        console.log("Main img: " + data.PhotoIds[0].PhotoID);
+                        $('#mainImg').append("<img class=\"img-responsive\" alt=\"picture\" src=\"" + url + "\"/>");
+                    }
+                    if (photosCount === 3) {
+                        console.log("Jesteś w ifie: photosCount === 3");
+                        var url = '@Url.Action("Index","Photo")?id=' + data.PhotoIds[0].PhotoID;
+                        $('#mainImg').append("<img class=\"img-responsive\" alt=\"picture\" src=\"" + url + "\"/>");
+                        $('#optionalImg')
+                            .append("<div class=\"col-sm-6 col-md-6\" id=\"optional1\"></div>\n<div class=\"col-sm-6 col-md-6\" id=\"optional2\"></div>");
+                        var urlOptional1 = '@Url.Action("Index","Photo")?id=' + data.PhotoIds[1].PhotoID;
+                        $('#optional1')
+                            .append("<img class=\"img-responsive\" alt=\"picture\" src=\"" + urlOptional1 + "\"/>");
+                        var urlOptional2 = '@Url.Action("Index","Photo")?id=' + data.PhotoIds[2].PhotoID;
+                        $('#optional2')
+                            .append("<img class=\"img-responsive\" alt=\"picture\" src=\"" + urlOptional2 + "\"/>");
+                    }
+                    if (photosCount > 3) {
+                        console.log("Jesteś w ifie photosCount > 3");
+                        var url = '@Url.Action("Index","Photo")?id=' + data.PhotoIds[0].PhotoID;
+                        console.log("MainImg: " + data.PhotoIds[0].PhotoID);
+                        $('#mainImg').append("<img class=\"img-responsive\" alt=\"picture\" src=\"" + url + "\"/>");
+                        $('#optionalImg')
+                            .append("<div class=\"col-sm-4 col-md-4\" id=\"optional1\"></div>\n<div class=\"col-sm-4 col-md-4\" id=\"optional2\"></div>" +
+                                "\n<div id=\"optional3\" class=\"col-sm-4 col-md-4\"></div>");
+                        var urlOptional1 = '@Url.Action("Index","Photo")?id=' + data.PhotoIds[1].PhotoID;
+                        $('#optional1')
+                            .append("<img class=\"img-responsive\" alt=\"picture\" src=\"" + urlOptional1 + "\"/>");
+                        var urlOptional2 = '@Url.Action("Index","Photo")?id=' + data.PhotoIds[2].PhotoID;
+                        $('#optional2')
+                            .append("<img class=\"img-responsive\" alt=\"picture\" src=\"" + urlOptional2 + "\"/>");
+                        var urlOptional3 = '@Url.Action("Index","Photo")?id=' + data.PhotoIds[3].PhotoID;
+                        $('#optional3')
+                            .append("<img class=\"img-responsive\" alt=\"picture\" src=\"" + urlOptional3 + "\"/>");
+                    }
+                }
+            });
+        });
+
+    $('.modal')
+        .on("hidden.bs.modal",
+            function () {
+                $('#mainImg').html("");
+                $('#optionalImg').html("");
+                $('#roomName').html("");
+                $('#roomName').attr("room-id", "");
+                $('#adultsCapacity').html("");
+                $('#kidsCapacity').html("");
+                $('#price').html("");
+            });
+</script>
 

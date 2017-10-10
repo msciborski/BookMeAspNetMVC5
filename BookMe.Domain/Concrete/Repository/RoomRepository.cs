@@ -45,5 +45,10 @@ namespace BookMe.Domain.Concrete.Repository {
             }
             return 0;
         }
+
+        public Room GetRoomWithPhotos(int id){
+            Room room = DbSet.Include(r => r.Photos).First(r => r.RoomID == id);
+            return room;
+        }
     }
 }

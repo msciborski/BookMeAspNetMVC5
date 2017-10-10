@@ -86,6 +86,13 @@ namespace BookMe.Domain.Concrete {
             List<Photo> photos = new List<Photo>();
             CreatePhotoList(7, bytePhoto, mimeType, "hotel", photos);
             CreatePhotoList(20, byteRoomPhoto, mimeRoomType, "room", photos);
+            CreatePhotoList(7, bytePhoto, mimeType, "hotel non-primary", photos);
+            CreatePhotoList(20, byteRoomPhoto, mimeRoomType, "room non-primary", photos);
+            CreatePhotoList(7, bytePhoto, mimeType, "hotel non-primary", photos);
+            CreatePhotoList(20, byteRoomPhoto, mimeRoomType, "room non-primary", photos);
+            CreatePhotoList(7, bytePhoto, mimeType, "hotel non-primary", photos);
+            CreatePhotoList(20, byteRoomPhoto, mimeRoomType, "room non-primary", photos);
+
             photos.Add(new Photo() { CityID = 1, ImageData = byteCity, ImageMimeType = mimeCityType });
             photos.Add(new Photo() { CityID = 2, ImageData = byteCity, ImageMimeType = mimeCityType });
             photos.Add(new Photo() { CityID = 3, ImageData = byteCity, ImageMimeType = mimeCityType });
@@ -106,9 +113,22 @@ namespace BookMe.Domain.Concrete {
                         photos.Add(new Photo(){
                             HotelID = hotelID,
                             ImageData = bytePhoto,
-                            ImageMimeType = mimeType
+                            ImageMimeType = mimeType,
+                            IsPrimaryPhoto = true
                         });
                         hotelID++;
+                    }
+                    break;
+                case "hotel non-primary":
+                    int hotelID2 = 1;
+                    for (int i = startIndex + 1; i <= (count + startIndex); i++) {
+                        photos.Add(new Photo() {
+                            HotelID = hotelID2,
+                            ImageData = bytePhoto,
+                            ImageMimeType = mimeType,
+                            IsPrimaryPhoto = false
+                        });
+                        hotelID2++;
                     }
                     break;
                 case "room":
@@ -117,9 +137,22 @@ namespace BookMe.Domain.Concrete {
                         photos.Add(new Photo(){
                             RoomID = roomID,
                             ImageData = bytePhoto,
-                            ImageMimeType = mimeType
+                            ImageMimeType = mimeType,
+                            IsPrimaryPhoto = true
                         });
                         roomID++;
+                    }
+                    break;
+                case "room non-primary":
+                    int roomID2 = 1;
+                    for (int i = startIndex; i < (count + startIndex); i++) {
+                        photos.Add(new Photo() {
+                            RoomID = roomID2,
+                            ImageData = bytePhoto,
+                            ImageMimeType = mimeType,
+                            IsPrimaryPhoto = false
+                        });
+                        roomID2++;
                     }
                     break;
             }

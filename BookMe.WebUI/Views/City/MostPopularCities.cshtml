@@ -2,7 +2,7 @@
 @model IEnumerable<CityViewModel>
 @foreach (var cityViewModel in Model){
     <div class="row">
-        <div class="jumbotron" style="background-image: url(@Url.Action("Index", "Photo", new {id = cityViewModel.City.Photos.FirstOrDefault().PhotoID})); background-position: center; color: darkgrey;">
+        <div class="jumbotron" style="background-image: url(@Url.Action("Index", "Photo", new {id = cityViewModel.City.Photos.FirstOrDefault().PhotoID})); background-position: center; color: darkgrey; background-size: cover; ">
             <hgroup>
                 <h3>@Html.ActionLink(cityViewModel.City.Name,"List","Hotel",new {search = cityViewModel.City.Name}, null)</h3>
                 <h4>Ilość hoteli: @cityViewModel.Count</h4>

@@ -12,5 +12,6 @@ namespace BookMe.Domain.Concrete.Repository.Interfaces {
         int BigestKidCapacity();
         int LeastAdultCapacity();
         int LeastKidCapacity();
+        Room GetRoomWithPhotos(int id);
     }
 }
